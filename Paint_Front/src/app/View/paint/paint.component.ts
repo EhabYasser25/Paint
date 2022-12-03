@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/Controller/http.service';
+import { AttributesService } from 'src/app/Controller/attributes/attributes.service';
 
 @Component({
   selector: 'app-paint',
@@ -8,20 +8,17 @@ import { HttpService } from 'src/app/Controller/http.service';
 })
 export class PaintComponent implements OnInit {
 
-  constructor(private service: HttpService) { }
+  constructor(private att: AttributesService) { }
 
   ngOnInit(): void {
   }
 
-  text = "kllll";
+  getText() {
+    return this.att.getText();
+  }
 
   send() {
-    this.service.getRequest("http://localhost:8080")
-    .subscribe(
-      (data: string) => {
-        this.text = data;
-      }
-    )
+    this.att.send();
   }
 
 }
