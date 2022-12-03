@@ -8,7 +8,7 @@ public class HttpService {
 
     @GetMapping(value = "/")
     public String str () {
-        return "Hello there!";
+        return "HELLO!!!";
     }
 
 }
