@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaintComponent } from './paint.component';
+import { DrawareaComponent } from './drawarea.component';
 
-describe('PaintComponent', () => {
-  let component: PaintComponent;
-  let fixture: ComponentFixture<PaintComponent>;
+describe('DrawareaComponent', () => {
+  let component: DrawareaComponent;
+  let fixture: ComponentFixture<DrawareaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaintComponent ]
+      declarations: [ DrawareaComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PaintComponent);
+    fixture = TestBed.createComponent(DrawareaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

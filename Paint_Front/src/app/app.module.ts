@@ -5,13 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PaintComponent } from './View/paint/paint.component';
 import { HttpService } from './Controller/http/http.service';
+import { ToolbarComponent } from './View/toolbar/toolbar.component';
+import { DrawareaComponent } from './View/drawarea/drawarea.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaintComponent
+    ToolbarComponent,
+    DrawareaComponent
   ],
   imports: [
     BrowserModule,
