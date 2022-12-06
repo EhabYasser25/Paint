@@ -9,6 +9,8 @@ import { HttpService } from './Controller/http/http.service';
 import { ToolbarComponent } from './View/toolbar/toolbar.component';
 import { DrawareaComponent } from './View/drawarea/drawarea.component';
 
+import { KonvaModule } from 'ng2-konva';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { DrawareaComponent } from './View/drawarea/drawarea.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    KonvaModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
