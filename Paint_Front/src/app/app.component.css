@@ -1,0 +1,11 @@
+canvas{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.layers{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

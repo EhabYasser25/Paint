@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PaintComponent } from './View/paint/paint.component';
 import { HttpService } from './Controller/http/http.service';
+import { LayerComponent } from './layer/layer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaintComponent
+    PaintComponent,
+    LayerComponent
   ],
   imports: [
     BrowserModule,

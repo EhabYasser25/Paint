@@ -1,3 +1,5 @@
-<app-paint></app-paint>
 
-<router-outlet></router-outlet>
+<canvas #mainCanvas style="border: 1px solid" width="1500" height="700" (mousedown)="startDraw($event)" (mouseup)="endDraw($event)" (mousemove)="drawing($event)"></canvas>
+<div class="layers" *ngFor="let shape of shapes">
+    <layer [shape]="shape"></layer>
+</div>
