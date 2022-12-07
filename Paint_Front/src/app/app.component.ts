@@ -36,13 +36,13 @@ export class AppComponent implements OnInit{
     this.isDrawing = false;
     this.finalPosition.setCoordinate(e.offsetX, e.offsetY)
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    this.shapes.push(this.shapeFactory.createShape(this.initialPosition, this.finalPosition, "rectangle"));
+    this.shapes.push(this.shapeFactory.createShape(this.initialPosition, this.finalPosition, "circle"));
   }
 
   drawing(e: any){
     if(!this.isDrawing)
       return;
     this.context.putImageData(this.snapShot, 0, 0);
-    this.shapeFactory.drawShape(e, this.initialPosition , "rectangle");
+    this.shapeFactory.drawShape(e, this.initialPosition , "circle");
   }
 }
