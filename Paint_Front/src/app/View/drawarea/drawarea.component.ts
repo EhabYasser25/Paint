@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Stage } from 'konva/lib/Stage';
+import { Rectangle } from 'src/app/Controller/shapes/Rectangle';
 
 @Component({
   selector: 'app-drawarea',
@@ -12,6 +13,7 @@ export class DrawareaComponent implements OnInit {
 
   constructor() { }
 
+  type: string = "rectangle";
   stage!: Stage;
   layer!: Layer;
 
