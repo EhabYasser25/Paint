@@ -10,7 +10,6 @@ import { ToolbarComponent } from './View/toolbar/toolbar.component';
 import { DrawareaComponent } from './View/drawarea/drawarea.component';
 
 import { KonvaModule } from 'ng2-konva';
-import { KonvaService } from './konva.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { KonvaService } from './konva.service';
     HttpClientModule,
     KonvaModule
   ],
-  providers: [HttpService, KonvaService],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
