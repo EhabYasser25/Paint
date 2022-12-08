@@ -48,9 +48,11 @@ export class DrawareaComponent implements OnInit {
       });
       component.layer.add(rect).batchDraw();
     });
+
     this.stage.on("mouseup", function() {
       drawing = false;
     });
+
     this.stage.on("mousemove", function() {
       if(!drawing) return;
       let pos = component.stage.getPointerPosition();
