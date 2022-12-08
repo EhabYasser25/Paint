@@ -11,7 +11,7 @@ export class ShapeFactory{
     }
 
     drawShape(event: any, initialPosition: Coordinate, shape: string){
-        switch(shape){
+        switch(shape) {
             case "rectangle":
                 this.context.strokeRect(event.offsetX, event.offsetY, initialPosition.getX() - event.offsetX, initialPosition.getY() - event.offsetY);
                 break;
