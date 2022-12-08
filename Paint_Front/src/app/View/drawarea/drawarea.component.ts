@@ -14,8 +14,6 @@ export class DrawareaComponent implements OnInit {
 
   stage!: Stage;
   layer!: Layer;
-  drawing = false;
-  rect: any;
 
   ngOnInit(): void {
     this.stage = new Konva.Stage({
@@ -23,31 +21,46 @@ export class DrawareaComponent implements OnInit {
       width: window.innerWidth,
       container: "draw"
     });
+    this.layer = new Konva.Layer();
     this.stage.add(this.layer);
-    this.stage.on("mousedown", this.mouseDownHandler);
-    this.stage.on("mousemove", this.mouseMoveHandler);
-    this.stage.on("mouseup", this.mouseUpHandler);
+    this.eventListeners();
   }
 
-  mouseDownHandler() {
-    this.drawing = true;
-    this.rect = new Konva.Rect({
-      x: this.stage.getPointerPosition()?.x,
-      y: this.stage.getPointerPosition()?.y,
-      width: 20,
-      height: 20,
-      stroke: "blue"
+  eventListeners() {
+
+    let startX: any;
+    let startY: any;
+    let endX: any;
+    let endY: any;
+    const component = this;
+    var rect: any;
+    let drawing: boolean = false;
+
+    this.stage.on("mousedown", function() {
+      drawing = true;
+      let pos = component.stage.getPointerPosition();
+      startX = pos?.x;
+      startY = pos?.y;
+      rect = new Konva.Rect({
+        x: startX,
+        y: startY,
+        stroke: "blue"
+      });
+      component.layer.add(rect).batchDraw();
     });
-    this.layer.add(this.rect).batchDraw();
-  }
-
-  mouseUpHandler() {
-    this.drawing = false;
-  }
-
-  mouseMoveHandler() {
-    if(!this.drawing) return;
-
+    this.stage.on("mouseup", function() {
+      drawing = false;
+    });
+    this.stage.on("mousemove", function() {
+      if(!drawing) return;
+      let pos = component.stage.getPointerPosition();
+      endX = pos?.x;
+      endY = pos?.y;
+      const width = endX - startX;
+      const height = endY - startY;
+      rect.width(width).height(height);
+      component.layer.batchDraw();
+    });
   }
 
 }
