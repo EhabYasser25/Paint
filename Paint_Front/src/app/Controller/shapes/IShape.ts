@@ -1,18 +1,14 @@
 export interface IShape {
 
-    id?: number;
+    id: number;
     x?: number;
     y?: number;
+    width?: number;
+    height?: number;
     rotateAngle?: number;
-    borderColor?: number[];
-    fillColor?: number[];
-
-
+    borderColor?: string;
+    fillColor?: string;
 
     draw(): void;
-
-
-
-
 
 }

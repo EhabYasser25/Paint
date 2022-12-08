@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Stage } from 'konva/lib/Stage';
-import { Rectangle } from 'src/app/Controller/shapes/Rectangle';
+import { AttributesService } from 'src/app/Controller/attributes/attributes.service';
+import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
 
 @Component({
   selector: 'app-drawarea',
@@ -11,11 +12,13 @@ import { Rectangle } from 'src/app/Controller/shapes/Rectangle';
 })
 export class DrawareaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private att: AttributesService) { }
 
   type: string = "rectangle";
   stage!: Stage;
   layer!: Layer;
+  shapefactory = new ShapeFactory(this.att);
+  shape: any;
 
   ngOnInit(): void {
     this.stage = new Konva.Stage({
@@ -28,26 +31,23 @@ export class DrawareaComponent implements OnInit {
     this.eventListeners();
   }
 
+  setType(type: string) {
+    this.type = type;
+  }
+
   eventListeners() {
 
-    let startX: any;
-    let startY: any;
-    let endX: any;
-    let endY: any;
     const component = this;
-    var rect: any;
+    let rect: any;
     let drawing: boolean = false;
 
     this.stage.on("mousedown", function() {
       drawing = true;
       let pos = component.stage.getPointerPosition();
-      startX = pos?.x;
-      startY = pos?.y;
-      rect = new Konva.Rect({
-        x: startX,
-        y: startY,
-        stroke: "blue"
-      });
+      component.att.x = pos?.x;
+      component.att.y = pos?.y;
+      component.shape = component.shapefactory.getShape(component.type);
+      rect = component.shape.draw();
       component.layer.add(rect).batchDraw();
     });
 
@@ -58,13 +58,15 @@ export class DrawareaComponent implements OnInit {
     this.stage.on("mousemove", function() {
       if(!drawing) return;
       let pos = component.stage.getPointerPosition();
-      endX = pos?.x;
-      endY = pos?.y;
-      const width = endX - startX;
-      const height = endY - startY;
+      let endX: any = pos?.x;
+      let endY: any = pos?.y;
+      const width = endX - component.att.x;
+      const height = endY - component.att.y;
+      //rect = component.shape.continueDraw();
       rect.width(width).height(height);
-      component.layer.batchDraw();
+      component.layer.add(rect).batchDraw();
     });
+    
   }
 
 }
