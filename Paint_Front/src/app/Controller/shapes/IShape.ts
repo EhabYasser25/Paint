@@ -9,6 +9,7 @@ export interface IShape {
     borderColor?: string;
     fillColor?: string;
 
-    draw(): void;
+    draw(): any;
+    continueDraw(width: number, height: number): void;
 
 }

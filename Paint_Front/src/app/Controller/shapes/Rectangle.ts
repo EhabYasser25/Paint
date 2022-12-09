@@ -24,14 +24,14 @@ export class Rectangle implements IShape {
 			height: this.height,
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
-			fill: this.fillColor
+			fill: this.fillColor,
+			draggable: true
 		});
 		return this.konv;
 	}
 
-	continueDraw(width: number, height: number): Konva.Rect {
+	continueDraw(width: number, height: number): void {
 		this.konv.width(width).height(height);
-		return this.konv;
 	}
 
 }

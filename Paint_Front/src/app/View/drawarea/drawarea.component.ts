@@ -17,6 +17,8 @@ export class DrawareaComponent implements OnInit {
   type: string = "rectangle";
   stage!: Stage;
   layer!: Layer;
+  tr: any;
+  shapes: Konva.Context[] = [];
   shapefactory = new ShapeFactory(this.att);
   shape: any;
 
@@ -28,6 +30,8 @@ export class DrawareaComponent implements OnInit {
     });
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
+    this.tr = new Konva.Transformer();
+    this.layer.add(this.tr);
     this.eventListeners();
   }
 
@@ -38,21 +42,20 @@ export class DrawareaComponent implements OnInit {
   eventListeners() {
 
     const component = this;
-    let rect: any;
+    let konv: any;
     let drawing: boolean = false;
+    let drag: boolean = false;
 
-    this.stage.on("mousedown", function() {
+    this.stage.on("mousedown", function(e) {
+      if(drag) return;
+      component.tr.nodes([]);
       drawing = true;
       let pos = component.stage.getPointerPosition();
       component.att.x = pos?.x;
       component.att.y = pos?.y;
       component.shape = component.shapefactory.getShape(component.type);
-      rect = component.shape.draw();
-      component.layer.add(rect).batchDraw();
-    });
-
-    this.stage.on("mouseup", function() {
-      drawing = false;
+      konv = component.shape.draw();
+      component.layer.add(konv).draw();
     });
 
     this.stage.on("mousemove", function() {
@@ -62,9 +65,30 @@ export class DrawareaComponent implements OnInit {
       let endY: any = pos?.y;
       const width = endX - component.att.x;
       const height = endY - component.att.y;
-      //rect = component.shape.continueDraw();
-      rect.width(width).height(height);
-      component.layer.add(rect).batchDraw();
+      component.shape.continueDraw(width, height);
+      component.layer.draw();
+    });
+
+    this.stage.on("mouseup", function() {
+      component.shapes.push(konv);
+      console.log(component.shapes);
+      drawing = false;
+    });
+
+    this.layer.on("mouseover", function() {
+      drag = true;
+    });
+
+    this.layer.on("mouseout", function() {
+      drag = false;
+    });
+
+    this.stage.on("click tap", function(e) {
+      if (e.target == component.stage) {
+        component.tr.nodes([]);
+        return;
+      }
+      component.tr.nodes([e.target]);
     });
     
   }
