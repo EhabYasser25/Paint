@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Stage } from 'konva/lib/Stage';
@@ -12,13 +12,17 @@ import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
 })
 export class DrawareaComponent implements OnInit {
 
+  @Input() Dshape !: string;
+  @Input() Dcolor !: string;
+  @Input() Dwidth !: number;
+
   constructor(private att: AttributesService) { }
 
   type: string = "rectangle";
   stage!: Stage;
   layer!: Layer;
   tr: any;
-  shapes: Konva.Context[] = [];
+  shapes: Konva.Shape[] = [];
   shapefactory = new ShapeFactory(this.att);
   shape: any;
 
@@ -69,8 +73,9 @@ export class DrawareaComponent implements OnInit {
       component.layer.draw();
     });
 
-    this.stage.on("mouseup", function() {
+    this.stage.on("mouseup",  function() {
       component.shapes.push(konv);
+      alert(konv.x());
       console.log(component.shapes);
       drawing = false;
     });

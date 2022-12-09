@@ -1,14 +1,21 @@
-.shapes {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
-	width: 30px;
-	height: 30px;
-}
+* {
+    box-sizing: border-box;
 
+}
+body{
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+
+}
+.container{
+    border-radius: 25px;
+    height: 150px;
+    width: auto;
+    display: flex;
+}
 .label {
 	grid-column-start: 1;
-  grid-column-end: 4;
+  	grid-column-end: 4;
 	text-align: center;
 }
 
@@ -16,3 +23,36 @@
 	width: 30px;
 	height: 30px;
 }
+
+ul {
+    list-style: none;
+}
+
+.shapes{
+    background-color: aquamarine;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+    height: 130px;
+    width: 320px
+}
+.colors{
+    background-color: aquamarine;
+    border-radius: 25px;
+    justify-content: space-between;
+    margin-left: 10px;
+    height: 130px;
+    width: 320px
+}
+.color-button {
+    background-color: rgb(238, 255, 127);
+    border-radius: 50%;
+}
+.tools{
+    background-color: rgb(255, 0, 0);
+    border-radius: 25px;
+    margin-left: 10px;
+    height: 130px;
+    width: 320px
+}
+

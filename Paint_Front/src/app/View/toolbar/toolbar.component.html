@@ -1,12 +1,45 @@
-<div class="shapes">
-	<div class="button">shapes</div>
-	<div class="button">⟍</div>
-	<div class="button">○</div>
-	<div class="button">⬭</div>
-	<div class="button">△</div>
-	<div class="button">◺</div>
-	<div class="button">▭</div>
-	<div class="button">◊</div>
-	<div class="button">⬠</div>
-	<div class="button">⬡</div>
-</div>
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class ="container">
+            <div class="shapes">
+                <button class="button" (click)="sendShape('line')">⟍</button>
+                <button class="button" (click)="sendShape('circle')">O</button>
+                <button class="button" (click)="sendShape('ellipse')" >⬭</button>
+                <button class="button" (click)="sendShape('triangle')">△</button>
+                <button class="button" (click)="sendShape('rTriangle')">◺</button>
+                <button class="button" (click)="sendShape('rectangle')">▭</button>
+                <button class="button" (click)="sendShape('square')">&#9744;</button>
+                <button class="button" (click)="sendShape('rhombus')">◊</button>
+                <button class="button" (click)="sendShape('pentagon')">⬠</button>
+                <button class="button" (click)="sendShape('hexagonal')">⬡</button>
+                <button class="button" (click)="sendShape('star')">&#9734;</button>
+                <button class="button" (click)="sendShape('lArrow')">&#8678;</button>
+                <button class="button" (click)="sendShape('tArrow')">&#8679;</button>
+                <button class="button" (click)="sendShape('rArrow')">&#8680;</button>
+                <button class="button" (click)="sendShape('bArrow')">&#8681;</button>
+                <label id="shapeslabel">Shapes</label>
+            </div>
+            <div class="tools">
+                <button></button>
+                <button></button>
+                <input type="range">
+                <label id="toolslabel">Tools</label>
+            </div>
+            <div class="colors">
+                <button class="color-button" (click)="sendColor('white')"></button>
+                <button class="color-button" (click)="sendColor('black')"></button>
+                <button class="color-button" (click)="sendColor('red')"></button>
+                <button class="color-button" (click)="sendColor('tomato')"></button>
+                <button class="color-button" (click)="sendColor('orange')"></button>
+                <button class="color-button" (click)="sendColor('yellow')"></button>
+                <button class="color-button" (click)="sendColor('green')"></button>
+                <button class="color-button" (click)="sendColor('blue')"></button>
+                <button class="color-button" (click)="sendColor('light-blue')"></button>
+                <button class="color-button" (click)="sendColor('purple')"></button>
+                <button class="color-button" (click)="sendColor('pink')"></button>
+                <label id="colorslabel">Color</label>
+            </div>
+        </div>
+    </body>
+</html>
