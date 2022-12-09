@@ -74,9 +74,9 @@ export class DrawareaComponent implements OnInit {
     });
 
     this.stage.on("mouseup",  function() {
-      component.shapes.push(konv);
-      alert(konv.x());
+      if(drawing) component.shapes.push(konv);
       console.log(component.shapes);
+      console.log(konv.id());
       drawing = false;
     });
 
