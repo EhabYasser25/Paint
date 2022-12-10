@@ -5,23 +5,28 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'Paint_Front';
 
-  receivedShape: string = '';
-  receiveShape($event : string) {
-    this.receivedShape = $event;
+  receivedShape: any = 'brush';
+  receiveShape(event: any) {
+    this.receivedShape = event;
   }
 
-  receivedColor: string = '';
-  receiveColor($event : string) {
-    this.receivedColor = $event;
+  receivedBorderColor: any = 'black';
+  receiveBorderColor(event: any) {
+    this.receivedBorderColor = event;
   }
 
-  receivedWidth: string = '';
-  receiveWidth($event : string)
-  {
-    this.receivedWidth = $event;
-    console.log(this.receivedWidth);
+  receivedFillColor: any = '#FFFFFF00';
+  receiveFillColor(event: any) {
+    this.receivedFillColor = event;
   }
+
+  receivedWidth: any = '5';
+  receiveWidth(event: any) {
+    this.receivedWidth = event;
+  }
+  
 }

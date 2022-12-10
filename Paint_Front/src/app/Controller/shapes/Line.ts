@@ -22,7 +22,7 @@ export class Line implements IShape {
 			points: [this.x, this.y],
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
-			//strokeWidth: this.strokeWidth,
+			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
 			draggable: true
 		});

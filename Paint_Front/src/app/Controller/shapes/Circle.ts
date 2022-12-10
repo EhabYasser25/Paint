@@ -24,7 +24,7 @@ export class Circle implements IShape {
 			radius: Math.sqrt(Math.pow(this.width, 2) + Math.pow(this.height, 2)),
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
-			//strokeWidth: this.strokeWidth,
+			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
 			draggable: true
 		});

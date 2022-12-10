@@ -1,10 +1,12 @@
 <app-toolbar
- (childToParent)="receiveShape($event)"
- (childToParent)="receiveColor($event)"
- (childToParent)="receiveWidth($event)"
+    (shapeEmitter)="receiveShape($event)"
+    (borderColorEmitter)="receiveBorderColor($event)"
+    (fillColorEmitter)="receiveFillColor($event)"
+    (widthEmitter)="receiveWidth($event)"
  ></app-toolbar>
-<app-drawarea
+<app-drawarea class="draw"
  [Dshape] = "receivedShape"
- [Dcolor] = "receivedColor"
+ [Dbordercolor] = "receivedBorderColor"
+ [Dfillcolor] = "receivedFillColor"
  [Dwidth] = "receivedWidth"
  ></app-drawarea>

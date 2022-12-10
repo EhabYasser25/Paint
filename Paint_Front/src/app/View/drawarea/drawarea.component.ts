@@ -12,9 +12,10 @@ import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
 })
 export class DrawareaComponent implements OnInit {
 
-  @Input() Dshape !: string;
-  @Input() Dcolor !: string;
-  @Input() Dwidth !: string;
+  @Input() Dshape : any;
+  @Input() Dbordercolor : any;
+  @Input() Dfillcolor : any;
+  @Input() Dwidth : any;
 
   constructor(private att: AttributesService) { }
 
@@ -35,6 +36,7 @@ export class DrawareaComponent implements OnInit {
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
     this.tr = new Konva.Transformer();
+    this.tr.borderEnabled(true);
     this.layer.add(this.tr);
     this.eventListeners();
   }
@@ -46,16 +48,17 @@ export class DrawareaComponent implements OnInit {
     let drawing: boolean = false;
     let drag: boolean = false;
 
-    this.stage.on("mousedown", function(e) {
+    this.stage.on("mousedown", function() {
       if(drag) return;
       component.tr.nodes([]);
       drawing = true;
       let pos = component.stage.getPointerPosition();
       component.att.x = pos?.x;
       component.att.y = pos?.y;
-      component.att.borderColor = component.Dcolor;
+      component.att.borderColor = component.Dbordercolor;
+      component.att.fillColor = component.Dfillcolor;
       component.att.strokeWidth = Number(component.Dwidth);
-      console.log(component.Dwidth);
+      console.log(component.Dshape);
       component.shape = component.shapefactory.getShape(component.Dshape);
       konv = component.shape.draw();
       component.layer.add(konv).draw();

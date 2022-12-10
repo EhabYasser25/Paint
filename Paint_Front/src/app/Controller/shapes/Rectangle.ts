@@ -7,8 +7,8 @@ export class Rectangle implements IShape {
 		public id: number = 0,
 		public x: number = 0,
 		public y: number = 0,
-		public width: number = 0,
-		public height: number = 0,
+		public width: number = 10,
+		public height: number = 10,
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -25,7 +25,7 @@ export class Rectangle implements IShape {
 			height: this.height,
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
-			//strokeWidth: this.strokeWidth,
+			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
 			draggable: true
 		});

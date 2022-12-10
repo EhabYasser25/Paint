@@ -8,19 +8,26 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 export class ToolbarComponent implements OnInit {
 
-  @Output() childToParent = new EventEmitter<string>();
+  @Output() shapeEmitter = new EventEmitter<string>();
   sendShape(event: any)
   {
-    this.childToParent.emit(event);
+    this.shapeEmitter.emit(event);
   }
-  sendColor(event: any)
-  {
-    this.childToParent.emit(event);
+
+  @Output() borderColorEmitter = new EventEmitter<string>();
+  sendBorderColor(event: any) {
+    this.borderColorEmitter.emit(event);
   }
+
+  @Output() fillColorEmitter = new EventEmitter<string>();
+  sendFillColor(event: any) {
+    this.fillColorEmitter.emit(event);
+  }
+
+  @Output() widthEmitter = new EventEmitter<string>();
   sendWidth(event: any)
   {
-    this.childToParent.emit(String(event.target.value));
-    console.log(event.target.value);
+    this.widthEmitter.emit(event.target.value);
   }
 
   constructor() { }
