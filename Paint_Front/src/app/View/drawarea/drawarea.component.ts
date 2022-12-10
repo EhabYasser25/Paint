@@ -21,6 +21,7 @@ export class DrawareaComponent implements OnInit {
   stage!: Stage;
   layer!: Layer;
   tr: any;
+  selection: boolean = true;
   shapes: Konva.Shape[] = [];
   shapefactory = new ShapeFactory(this.att);
   shape: any;
@@ -77,16 +78,22 @@ export class DrawareaComponent implements OnInit {
       drawing = false;
     });
 
-    this.layer.on("mouseover", function() {
-      drag = true;
+    this.layer.on("mouseover", function(e) {
+      if(component.selection) {
+        document.body.style.cursor = 'move';
+        e.target.draggable(true);
+        drag = true;
+      }
+      else e.target.draggable(false);
     });
 
     this.layer.on("mouseout", function() {
+      document.body.style.cursor = 'default';
       drag = false;
     });
 
     this.stage.on("click tap", function(e) {
-      if (e.target == component.stage) {
+      if (e.target == component.stage || !component.selection) {
         component.tr.nodes([]);
         return;
       }

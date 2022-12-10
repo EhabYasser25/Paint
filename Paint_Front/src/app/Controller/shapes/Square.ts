@@ -1,7 +1,7 @@
 import { IShape } from "./IShape";
 import Konva from 'konva';
 
-export class Circle implements IShape {
+export class Square implements IShape {
 
 	constructor(
 		public id: number = 0,
@@ -17,24 +17,22 @@ export class Circle implements IShape {
 
 	konv: any;
     
-	draw(): Konva.Circle {
-		this.konv = new Konva.Circle({
+	draw(): Konva.Rect {
+		this.konv = new Konva.Rect({
 			x: this.x,
 			y: this.y,
-			radius: Math.sqrt(Math.pow(this.width, 2) + Math.pow(this.height, 2)),
+			width: this.width,
+			height: this.width,
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
 			//strokeWidth: this.strokeWidth,
-			fill: this.fillColor,
-			draggable: true
+			fill: this.fillColor
 		});
 		return this.konv;
 	}
 
-	continueDraw(width: number, height: number): void {
-		this.konv.x(this.x + width/2).y(this.y + height/2);
-		const radius = Math.sqrt(width*width + height*height);
-		this.konv.radius(radius/2);
+	continueDraw(width: number, height?: number): void {
+		this.konv.width(width).height(width);
 	}
 
 }
