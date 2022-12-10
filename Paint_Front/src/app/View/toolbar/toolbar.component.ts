@@ -1,4 +1,3 @@
-
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -10,11 +9,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ToolbarComponent implements OnInit {
 
   @Output() childToParent = new EventEmitter<string>();
-  sendShape($event: string | undefined) {
-    this.childToParent.emit($event);
+  sendShape(event: any)
+  {
+    this.childToParent.emit(event);
   }
-  sendColor($event: string | undefined) {
-    this.childToParent.emit($event);
+  sendColor(event: any)
+  {
+    this.childToParent.emit(event);
+  }
+  sendWidth(event: any)
+  {
+    this.childToParent.emit(String(event.target.value));
+    console.log(event.target.value);
   }
 
   constructor() { }

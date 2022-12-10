@@ -13,6 +13,7 @@ export class AttributesService {
   width?: any;
   height?: any;
   rotateAngle?: any;
+  strokeWidth?: any;
   borderColor?: any;
   fillColor?: any;
 

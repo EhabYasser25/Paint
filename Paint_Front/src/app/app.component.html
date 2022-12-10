@@ -1,4 +1,10 @@
-<app-toolbar></app-toolbar>
-<app-drawarea></app-drawarea>
-
-<router-outlet></router-outlet>
+<app-toolbar
+ (childToParent)="receiveShape($event)"
+ (childToParent)="receiveColor($event)"
+ (childToParent)="receiveWidth($event)"
+ ></app-toolbar>
+<app-drawarea
+ [Dshape] = "receivedShape"
+ [Dcolor] = "receivedColor"
+ [Dwidth] = "receivedWidth"
+ ></app-drawarea>

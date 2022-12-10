@@ -14,11 +14,10 @@ export class DrawareaComponent implements OnInit {
 
   @Input() Dshape !: string;
   @Input() Dcolor !: string;
-  @Input() Dwidth !: number;
+  @Input() Dwidth !: string;
 
   constructor(private att: AttributesService) { }
 
-  type: string = "rectangle";
   stage!: Stage;
   layer!: Layer;
   tr: any;
@@ -39,10 +38,6 @@ export class DrawareaComponent implements OnInit {
     this.eventListeners();
   }
 
-  setType(type: string) {
-    this.type = type;
-  }
-
   eventListeners() {
 
     const component = this;
@@ -57,7 +52,10 @@ export class DrawareaComponent implements OnInit {
       let pos = component.stage.getPointerPosition();
       component.att.x = pos?.x;
       component.att.y = pos?.y;
-      component.shape = component.shapefactory.getShape(component.type);
+      component.att.borderColor = component.Dcolor;
+      component.att.strokeWidth = Number(component.Dwidth);
+      console.log(component.Dwidth);
+      component.shape = component.shapefactory.getShape(component.Dshape);
       konv = component.shape.draw();
       component.layer.add(konv).draw();
     });
@@ -76,7 +74,6 @@ export class DrawareaComponent implements OnInit {
     this.stage.on("mouseup",  function() {
       if(drawing) component.shapes.push(konv);
       console.log(component.shapes);
-      console.log(konv.id());
       drawing = false;
     });
 
