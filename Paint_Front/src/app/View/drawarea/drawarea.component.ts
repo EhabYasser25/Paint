@@ -12,10 +12,10 @@ import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
 })
 export class DrawareaComponent implements OnInit {
 
-  @Input() Dshape : any;
-  @Input() Dbordercolor : any;
-  @Input() Dfillcolor : any;
-  @Input() Dwidth : any;
+  @Input() Dshape: any;
+  @Input() Dbordercolor: any;
+  @Input() Dfillcolor: any;
+  @Input() Dwidth: any;
 
   constructor(private att: AttributesService) { }
 

@@ -1,45 +1,42 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <div class ="container">
-            <div class="shapes">
-                <button class="shape-button" (click)="sendShape('line')">⟍</button>
-                <button class="shape-button" (click)="sendShape('arc')">⟍</button>
-                <button class="shape-button" (click)="sendShape('circle')">O</button>
-                <button class="shape-button" (click)="sendShape('ellipse')" >⬭</button>
-                <button class="shape-button" (click)="sendShape('triangle')">△</button>
-                <button class="shape-button" (click)="sendShape('rTriangle')">◺</button>
-                <button class="shape-button" (click)="sendShape('rectangle')">▭</button>
-                <button class="shape-button" (click)="sendShape('square')">&#9744;</button>
-                <button class="shape-button" (click)="sendShape('rhombus')">◊</button>
-                <button class="shape-button" (click)="sendShape('pentagon')">⬠</button>
-                <button class="shape-button" (click)="sendShape('hexagon')">⬡</button>
-                <button class="shape-button" (click)="sendShape('star')">&#9734;</button>
-                <button class="shape-button" (click)="sendShape('lArrow')">&#8678;</button>
-                <button class="shape-button" (click)="sendShape('tArrow')">&#8679;</button>
-                <button class="shape-button" (click)="sendShape('rArrow')">&#8680;</button>
-                <button class="shape-button" (click)="sendShape('bArrow')">&#8681;</button>
-                <div id="shape-label">Shapes</div>
-            </div>
-            <div class="tools">
-                <button class="tool-button" (click)="sendShape('brush')"></button>
-                <button class="tool-button" (click)="sendShape('erase')"></button>
-                <input id="slider" type="range" min = "5"  max = "30"  value = "5" (mouseup)="sendWidth($event)">
-                <div id="tool-label">Tools</div>
-            </div>
-            <div class="colors">
-                <button class="color-button" (click)="sendBorderColor('white')"></button>
-                <button class="color-button" (click)="sendBorderColor('black')"></button>
-                <button class="color-button" (click)="sendBorderColor('red')"></button>
-                <button class="color-button" (click)="sendBorderColor('tomato')"></button>
-                <button class="color-button" (click)="sendBorderColor('orange')"></button>
-                <button class="color-button" (click)="sendBorderColor('yellow')"></button>
-                <button class="color-button" (click)="sendBorderColor('green')"></button>
-                <button class="color-button" (click)="sendBorderColor('blue')"></button>
-                <button class="color-button" (click)="sendBorderColor('light-blue')"></button>
-                <button class="color-button" (click)="sendBorderColor('purple')"></button>
-                <div id="color-label">Colors</div>
-            </div>
+<body>
+    <div class ="container">
+        <div class="shapes">
+            <button class="shape-button" (click)="sendShape('line')">⟍</button>
+            <button class="shape-button" (click)="sendShape('arc')">⟍</button>
+            <button class="shape-button" (click)="sendShape('circle')">O</button>
+            <button class="shape-button" (click)="sendShape('ellipse')" >⬭</button>
+            <button class="shape-button" (click)="sendShape('triangle')">△</button>
+            <button class="shape-button" (click)="sendShape('rTriangle')">◺</button>
+            <button class="shape-button" (click)="sendShape('rectangle')">▭</button>
+            <button class="shape-button" (click)="sendShape('square')">&#9744;</button>
+            <button class="shape-button" (click)="sendShape('rhombus')">◊</button>
+            <button class="shape-button" (click)="sendShape('pentagon')">⬠</button>
+            <button class="shape-button" (click)="sendShape('hexagon')">⬡</button>
+            <button class="shape-button" (click)="sendShape('star')">&#9734;</button>
+            <button class="shape-button" (click)="sendShape('lArrow')">&#8678;</button>
+            <button class="shape-button" (click)="sendShape('tArrow')">&#8679;</button>
+            <button class="shape-button" (click)="sendShape('rArrow')">&#8680;</button>
+            <button class="shape-button" (click)="sendShape('bArrow')">&#8681;</button>
+            <div id="shape-label">Shapes</div>
         </div>
-    </body>
-</html>
+        <div class="tools">
+            <button class="tool-button" (click)="sendShape('brush')"></button>
+            <button class="tool-button" (click)="sendShape('erase')"></button>
+            <input id="slider" type="range" min = "1"  max = "30"  value = "1" (mouseup)="sendWidth($event)">
+            <div id="tool-label">Tools</div>
+        </div>
+        <div class="colors">
+            <button class="color-button" (click)="sendBorderColor('white')"></button>
+            <button class="color-button" (click)="sendBorderColor('black')"></button>
+            <button class="color-button" (click)="sendBorderColor('red')"></button>
+            <button class="color-button" (click)="sendBorderColor('tomato')"></button>
+            <button class="color-button" (click)="sendBorderColor('orange')"></button>
+            <button class="color-button" (click)="sendBorderColor('yellow')"></button>
+            <button class="color-button" (click)="sendBorderColor('green')"></button>
+            <button class="color-button" (click)="sendBorderColor('blue')"></button>
+            <button class="color-button" (click)="sendBorderColor('light-blue')"></button>
+            <button class="color-button" (click)="sendBorderColor('purple')"></button>
+            <div id="color-label">Colors</div>
+        </div>
+    </div>
+</body>

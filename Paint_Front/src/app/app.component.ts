@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+  
   title = 'Paint_Front';
 
   receivedShape: any = 'brush';
@@ -24,7 +25,7 @@ export class AppComponent {
     this.receivedFillColor = event;
   }
 
-  receivedWidth: any = '5';
+  receivedWidth: any = '1';
   receiveWidth(event: any) {
     this.receivedWidth = event;
   }

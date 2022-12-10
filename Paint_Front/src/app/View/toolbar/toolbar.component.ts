@@ -9,8 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ToolbarComponent implements OnInit {
 
   @Output() shapeEmitter = new EventEmitter<string>();
-  sendShape(event: any)
-  {
+  sendShape(event: any) {
     this.shapeEmitter.emit(event);
   }
 
@@ -25,8 +24,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   @Output() widthEmitter = new EventEmitter<string>();
-  sendWidth(event: any)
-  {
+  sendWidth(event: any) {
     this.widthEmitter.emit(event.target.value);
   }
 
@@ -34,4 +32,5 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 }
