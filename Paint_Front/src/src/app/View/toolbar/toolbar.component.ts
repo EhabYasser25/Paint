@@ -32,7 +32,6 @@ export class ToolbarComponent implements OnInit {
   select: boolean = true;
   sendSelect() {
     this.selectEmitter.emit(this.select);
-    //console.log(this.select);
     this.select = !this.select;
   }
 

@@ -22,6 +22,7 @@ export class Polygon implements IShape{
 
     draw(): Konva.RegularPolygon{
         this.konv = new Konva.RegularPolygon({
+			id: String(this.id),
             x: this.x,
             y: this.y,
             sides: this.sides,

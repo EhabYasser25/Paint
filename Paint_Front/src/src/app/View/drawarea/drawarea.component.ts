@@ -3,6 +3,8 @@ import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Stage } from 'konva/lib/Stage';
 import { AttributesService } from 'src/app/Controller/attributes/attributes.service';
+import { HttpService } from 'src/app/Controller/http/http.service';
+import { Proxy } from 'src/app/Controller/Proxy';
 import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
 
 @Component({
@@ -10,6 +12,7 @@ import { ShapeFactory } from 'src/app/Controller/shapes/ShapeFactory';
   templateUrl: './drawarea.component.html',
   styleUrls: ['./drawarea.component.css']
 })
+
 export class DrawareaComponent implements OnInit {
 
   @Input() Dshape: any;
@@ -18,14 +21,18 @@ export class DrawareaComponent implements OnInit {
   @Input() Dwidth: any;
   @Input() Dselect: any;
 
-  constructor(private att: AttributesService) { }
+  constructor(private att: AttributesService, private http: HttpService) { }
 
   stage!: Stage;
   layer!: Layer;
   tr: any;
   shapes: Konva.Shape[] = [];
+  index: number = 0;
   shapefactory = new ShapeFactory(this.att);
   shape: any;
+  konv: any;
+  drawing: boolean = false;
+  proxy!: Proxy;
 
   ngOnInit(): void {
     this.stage = new Konva.Stage({
@@ -38,21 +45,20 @@ export class DrawareaComponent implements OnInit {
     this.tr = new Konva.Transformer();
     this.tr.borderEnabled(true);
     this.layer.add(this.tr);
+    this.proxy = new Proxy(this.shapes, this.http);
     this.eventListeners();
   }
 
   eventListeners() {
 
     const component = this;
-    let konv: any;
-    let drawing: boolean = false;
-    let drag: boolean = false;
 
     this.stage.on("mousedown", function() {
-      if(drag) return;
+      if(component.Dselect) return;
       component.tr.nodes([]);
-      drawing = true;
+      component.drawing = true;
       let pos = component.stage.getPointerPosition();
+      component.att.id = component.index;
       component.att.x = pos?.x;
       component.att.y = pos?.y;
       component.att.borderColor = component.Dbordercolor;
@@ -60,39 +66,45 @@ export class DrawareaComponent implements OnInit {
       component.att.strokeWidth = Number(component.Dwidth);
       console.log(component.Dshape);
       component.shape = component.shapefactory.getShape(component.Dshape);
-      konv = component.shape.draw();
-      component.layer.add(konv).draw();
+      component.konv = component.shape.draw();
+      component.layer.add(component.konv).draw();
     });
 
     this.stage.on("mousemove", function() {
-      if(!drawing) return;
+      if(!component.drawing) return;
       let pos = component.stage.getPointerPosition();
       let endX: any = pos?.x;
       let endY: any = pos?.y;
       const width = endX - component.att.x;
       const height = endY - component.att.y;
       component.shape.continueDraw(width, height);
-      component.layer.draw();
+      component.layer.draw(); 
     });
 
-    this.stage.on("mouseup",  function() {
-      if(drawing) component.shapes.push(konv);
+    this.stage.on("mouseup",  function(e) {
+      if(component.drawing) {
+        component.shapes.push(component.konv);
+        component.proxy.createShape(component.konv);
+        component.index++;
+      }
+      else if(e.target != component.stage) {
+        component.konv = e.target;
+        component.proxy.sendChange(component.konv);
+      }
       console.log(component.shapes);
-      drawing = false;
+      component.drawing = false;
     });
 
     this.layer.on("mouseover", function(e) {
       if(component.Dselect) {
         document.body.style.cursor = 'move';
         e.target.draggable(true);
-        drag = true;
       }
       else e.target.draggable(false);
     });
 
     this.layer.on("mouseout", function() {
       document.body.style.cursor = 'default';
-      drag = false;
     });
 
     this.stage.on("click tap", function(e) {
@@ -101,7 +113,16 @@ export class DrawareaComponent implements OnInit {
         return;
       }
       component.tr.nodes([e.target]);
+      console.log(e.target.id());
     });
+
+    this.layer.on("dragstart", function() {
+      console.log('ds');
+    });
+
+    this.layer.on("dragend", function() {
+
+    })
     
   }
 

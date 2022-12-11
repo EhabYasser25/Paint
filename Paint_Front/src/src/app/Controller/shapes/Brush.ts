@@ -1,7 +1,7 @@
 import { IShape } from "./IShape";
 import Konva from 'konva';
 
-export class Line implements IShape {
+export class Brush implements IShape {
 
 	constructor(
 		public id: number = 0,
@@ -16,22 +16,25 @@ export class Line implements IShape {
 	) { }
 
 	konv: any;
+    points: number[] = [];
     
 	draw(): Konva.Line {
 		this.konv = new Konva.Line({
+			id: String(this.id),
 			points: [this.x, this.y, this.x, this.y],
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
-			lineCap: 'round',
-			draggable: true
+			lineCap: 'round'
 		});
 		return this.konv;
 	}
 
 	continueDraw(width: number, height: number): void {
-		this.konv.points([this.x, this.y, this.x + width, this.y + height]);
+        this.points.push(this.x + width);
+        this.points.push(this.y + height);
+        this.konv.points(this.points);
 	}
 
 }

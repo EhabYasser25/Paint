@@ -20,6 +20,7 @@ export class Ellipse implements IShape {
 
     draw(): Konva.Ellipse{
         this.konv = new Konva.Ellipse({
+			id: String(this.id),
             x: this.x,
             y: this.y,
             radiusX: this.width,

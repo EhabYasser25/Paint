@@ -1,13 +1,12 @@
 import { IShape } from "./IShape";
 import Konva from 'konva';
 
-export class Star implements IShape {
+export class Rectangle implements IShape {
 
 	constructor(
 		public id: number = 0,
 		public x: number = 0,
 		public y: number = 0,
-        public sides: number = 0,
 		public width: number = 1,
 		public height: number = 1,
 		public rotateAngle: number = 0,
@@ -18,26 +17,23 @@ export class Star implements IShape {
 
 	konv: any;
     
-	draw(): Konva.Star {
-		this.konv = new Konva.Star({
+	draw(): Konva.Rect {
+		this.konv = new Konva.Rect({
+			id: String(this.id),
 			x: this.x,
 			y: this.y,
-            numPoints: this.sides,
-			outerRadius: Math.sqrt(this.width*this.width + this.height*this.height),
-            innerRadius: Math.sqrt(this.width*this.width + this.height*this.height)/2,
+			width: this.width,
+			height: this.height,
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
-			fill: this.fillColor,
+			fill: this.fillColor
 		});
 		return this.konv;
 	}
 
 	continueDraw(width: number, height: number): void {
-		// this.konv.x(this.x + width/2).y(this.y + height/2);
-		const radius = Math.sqrt(width*width + height*height);
-		this.konv.outerRadius(radius);
-        this.konv.innerRadius(radius/2);
+		this.konv.width(width).height(height);
 	}
 
 }

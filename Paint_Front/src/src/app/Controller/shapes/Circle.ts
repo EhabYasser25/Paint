@@ -1,14 +1,14 @@
 import { IShape } from "./IShape";
 import Konva from 'konva';
 
-export class Brush implements IShape {
+export class Circle implements IShape {
 
 	constructor(
 		public id: number = 0,
 		public x: number = 0,
 		public y: number = 0,
-		public width: number = 0,
-		public height: number = 0,
+		public width: number = 1,
+		public height: number = 1,
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -16,25 +16,25 @@ export class Brush implements IShape {
 	) { }
 
 	konv: any;
-    points: number[] = [];
     
-	draw(): Konva.Line {
-		this.konv = new Konva.Line({
-			points: [this.x, this.y, this.x, this.y],
+	draw(): Konva.Circle {
+		this.konv = new Konva.Circle({
+			id: String(this.id),
+			x: this.x,
+			y: this.y,
+			radius: Math.sqrt(this.width*this.width + this.height*this.height),
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
-			fill: this.fillColor,
-			lineCap: 'round',
-			draggable: true
+			fill: this.fillColor
 		});
 		return this.konv;
 	}
 
 	continueDraw(width: number, height: number): void {
-        this.points.push(this.x + width);
-        this.points.push(this.y + height);
-        this.konv.points(this.points);
+		// this.konv.x(this.x + width/2).y(this.y + height/2);
+		const radius = Math.sqrt(width*width + height*height);
+		this.konv.radius(radius);
 	}
 
 }
