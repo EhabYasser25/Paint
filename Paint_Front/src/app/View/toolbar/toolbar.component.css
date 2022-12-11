@@ -1,0 +1,395 @@
+
+
+* {
+    box-sizing: border-box;
+}
+body{
+    border: 10px;
+    border: 5px solid rgb(0, 0, 0);
+    background-color: rgb(214, 214, 214);
+    border-radius: 25px;
+}
+.container{
+    padding: 10px;
+    border-radius: 25px;
+    height: 170px;
+    width: auto;
+    display: flex;
+}
+
+/* -------------------------------------------shape div--------------------------------------*/
+
+.shapes{
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border-radius: 25px;
+    padding: 10px;
+    height: 150px;
+    width: 400px;
+}
+.shape-button {
+    text-align: center;
+    font-size: 24px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin: 2px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+.shape-button:hover {
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+    color: black;
+  }
+.shape-button:active {
+    transform: translateY(4px);
+}
+#arc {
+    background-image: url(https://static.thenounproject.com/png/512553-200.png);
+    background-size: cover;
+}
+/*-----------------------*/
+.select-button{
+    text-align: center;
+    margin: 2px;
+    border: 3px solid black;
+    font-weight: bold;
+    width: 60px;
+    height: 40px;
+    cursor: pointer;
+}
+.select-button:active {
+    transform: translateY(4px);
+}
+.green{
+    background-color: #00cc00;
+}
+.red{
+    background-color: #ff0000;
+}
+/*-----------------------*/
+.invisable{
+    border-radius: 50%;
+    margin: 4px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
+/* -------------------------------------------color div--------------------------------------*/
+
+.colors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px 0px 0px 25px;
+    padding: 10px;
+    margin-left: 10px;
+    height: 150px;
+    width: 400px
+}
+
+.color-button{
+    margin: 2px;
+    height: 29px;
+    width: 29px;
+    border-radius: 50%;
+    border: 2px solid black;
+    cursor: pointer;
+}
+.color-button:active {
+    transform: translateY(4px);
+}
+#Black{
+    background-color: #000000;
+}
+#Gray{
+    background-color: #666666;
+}
+#White{
+    background-color: #ffffff;
+}
+#H-red{
+    background-color: #800000;
+}
+#red{
+    background-color: #ff0000;
+}
+#L-red{
+    background-color: #ff8080;
+}
+#H-orange{
+    background-color: #804d00 ;
+}
+#orange{
+    background-color: #ff9900;
+}
+#L-orange{
+    background-color: #ffcc80;
+}
+#H-yellow{
+    background-color: #808000;
+}
+#yellow{
+    background-color: #ffff00;
+}
+#L-yellow{
+    background-color: #ffff80;
+}
+#H-green{
+    background-color: #008000;
+}
+#green{
+    background-color: #00cc00;
+}
+#L-green{
+    background-color: #80ff80;
+}
+#H-blue{
+    background-color: #000066;
+}
+#blue{
+    background-color: #0000ff;
+}
+#L-blue{
+    background-color: #8080ff;
+}
+#H-aqua{
+    background-color: #008080;
+}
+#aqua{
+    background-color: #00ffff;
+}
+#L-aqua{
+    background-color: #80ffff;
+}
+#H-purple{
+    background-color: #330080;
+}
+#purple{
+    background-color: #6600ff;
+}
+#L-purple{
+    background-color: #b380ff;
+}
+
+
+.borderColor-button{
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+}
+.fillColor-button{
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.colorSelector{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px  25px  25px  0px;
+    padding: 10px;
+    height: 150px;
+    width: 150px
+}
+.colorSelector-button{
+    background-image: url(https://static.food4rhino.com/s3fs-public/users-files/dale-fugier/app/colorpicker.png);
+    background-size: cover;
+    border-radius: 50%;
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+#colorpicker {
+    margin: 6px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+/* -------------------------------------------tool div--------------------------------------*/
+
+.tools{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 10px;
+    height: 150px;
+    width: 160px;
+}
+.tool-button{
+    background-color: rgb(255, 255, 255);
+    margin: 2px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.tool-button:active {
+    transform: translateY(4px);
+}
+.tool-button:hover {
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+    color: black;
+  }
+
+#brush{
+    background-image: url(https://cdn-icons-png.flaticon.com/512/65/65607.png);
+    background-size: cover;
+}
+#eraser{
+    background-image: url(https://cdn0.iconfinder.com/data/icons/outline-icons/320/Eraser-512.png);
+    background-size: cover;
+}
+/*---------------Slider----------------*/
+#slider{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 25px;
+    background-color: rgb(214, 214, 214);
+    outline: none;
+    border-radius: 25px;
+}
+#slider:hover{
+    background-color: rgb(97, 97, 97);
+}
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: black;
+    cursor: pointer;
+  }
+/*-------------------------------------------- do div ---------------------------------------*/
+.do-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 10px;
+    height: 150px;
+    width: 160px;
+}
+.do-buttons{
+    background-color: rgb(255, 255, 255);
+    margin: 9px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.do-buttons:active {
+    transform: translateY(4px);
+}
+.do-buttons:hover {
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+}
+
+#undo-button {
+    background-image: url(https://img.icons8.com/sf-black-filled/512/undo.png);
+    background-size: cover;
+}
+#redo-button {
+    background-image: url(https://img.icons8.com/sf-black-filled/512/redo.png);
+    background-size: cover;
+}
+
+
+/*-------------------------------------------- clear div --------------------------------------*/
+.clear {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 10px;
+    height: 150px;
+    width: 150px
+}
+#clear-button {
+    background-color: rgb(255, 255, 255);
+    margin: 9px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-image: url(https://img.icons8.com/carbon-copy/512/full-trash.png);
+    background-size: cover;
+}
+#clear-button:active {
+    transform: translateY(4px);
+}
+#clear-button:hover {
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+}
+
+/*------------------------------------------ action div -------------------------------------------*/
+.action-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 10px;
+    height: 150px;
+    width: 160px
+}
+.action-buttons{
+    background-color: rgb(255, 255, 255);
+    margin: 9px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.action-buttons:active {
+    transform: translateY(4px);
+}
+.action-buttons:hover {
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+}
+#save-button {
+    background-image: url(https://img.icons8.com/ios-filled/512/save--v1.png);
+    background-size: cover;
+}
+#load-button {
+    background-image: url(https://img.icons8.com/fluency-systems-filled/512/opened-folder.png);
+    background-size: cover;
+}

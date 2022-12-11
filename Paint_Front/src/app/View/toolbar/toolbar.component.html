@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class ="container">
+            <div class="shapes">
+                <button class="shape-button" (click)="sendShape('line')">⟍</button>
+                <button class="shape-button" id="arc" (click)="sendShape('arc')"></button>
+                <button class="shape-button" (click)="sendShape('circle')">O</button>
+                <button class="shape-button" (click)="sendShape('ellipse')" >⬭</button>
+                <button class="shape-button" (click)="sendShape('triangle')">△</button>
+                <button class="shape-button" (click)="sendShape('rTriangle')">◺</button>
+                <button class="shape-button" (click)="sendShape('rectangle')">▭</button>
+                <button class="shape-button" (click)="sendShape('square')">&#9744;</button>
+                <button class="shape-button" (click)="sendShape('rhombus')">◊</button>
+                <button class="shape-button" (click)="sendShape('pentagon')">⬠</button>
+                <button class="shape-button" (click)="sendShape('hexagon')">⬡</button>
+                <button class="shape-button" (click)="sendShape('star')">&#9734;</button>
+                <button class="invisable"></button>
+                <!--<button class="fill-button" (click)="sendFill()"></button>-->
+                <button
+                    class="select-button"
+                    (click)="sendSelect()"
+                    (click)="enableDisableRule()"
+                    [ngClass]="{'green' : toggle, 'red': !toggle}"> Select
+                </button>
+                <button class="invisable"></button>
+                <div id="shape-label">Shapes</div>
+            </div>
+            <div class="tools">
+                <button class="tool-button" id="brush" (click)="sendShape('brush')"></button>
+                <button class="tool-button" id="eraser" (click)="sendShape('erase')"></button>
+                <input id="slider" type="range" min = "1"  max = "30"  value = "1" (mouseup)="sendWidth($event)">
+                <div id="tool-label">Tools</div>
+            </div>
+            <div class="colors">
+                <button class="borderColor-button" (click)="colorStyle(true)"></button>
+                <button class="fillColor-button"  (click)="colorStyle(false)"></button>
+
+                <button class="color-button" id="Black"    (click)="sendColor('#000000')"></button>
+                <button class="color-button" id="Gray"     (click)="sendColor('#666666')"></button>
+                <button class="color-button" id="White"    (click)="sendColor('#ffffff')"></button>
+                <button class="color-button" id="H-red"    (click)="sendColor('#800000')"></button>
+                <button class="color-button" id="red"      (click)="sendColor('#ff0000')"></button>
+                <button class="color-button" id="L-red"    (click)="sendColor('#ff8080')"></button>
+                <button class="color-button" id="H-orange" (click)="sendColor('#804d00')"></button>
+                <button class="color-button" id="orange"   (click)="sendColor('#ff9900')"></button>
+                <button class="color-button" id="L-orange" (click)="sendColor('#ffcc80')"></button>
+                <button class="color-button" id="H-yellow" (click)="sendColor('#808000')"></button>
+                <button class="color-button" id="yellow"   (click)="sendColor('#ffff00')"></button>
+                <button class="color-button" id="L-yellow" (click)="sendColor('#ffff80')"></button>
+                <button class="color-button" id="H-green"  (click)="sendColor('#008000')"></button>
+                <button class="color-button" id="green"    (click)="sendColor('#00cc00')"></button>
+                <button class="color-button" id="L-green"  (click)="sendColor('#80ff80')"></button>
+                <button class="color-button" id="H-blue"   (click)="sendColor('#000066')"></button>
+                <button class="color-button" id="blue"     (click)="sendColor('#0000ff')"></button>
+                <button class="color-button" id="L-blue"   (click)="sendColor('#8080ff')"></button>
+                <button class="color-button" id="H-aqua"   (click)="sendColor('#008080')"></button>
+                <button class="color-button" id="aqua"     (click)="sendColor('#00ffff')"></button>
+                <button class="color-button" id="L-aqua"   (click)="sendColor('#80ffff')"></button>
+                <button class="color-button" id="H-purple" (click)="sendColor('#330080')"></button>
+                <button class="color-button" id="purple"   (click)="sendColor('#6600ff')"></button>
+                <button class="color-button" id="L-purple" (click)="sendColor('#b380ff')"></button>
+
+            </div>
+            <div class="colorSelector">
+                <input ejs-colorpicker type='color' id='colorpicker'>
+                <div id="color-label">Colors</div>
+            </div>
+
+            <div class="do-section">
+                <button class=do-buttons id="undo-button" (click)="makeUndo()"></button>
+                <button class=do-buttons id="redo-button" (click)="makeRedo()"></button>
+                <div id="do-label">Undo-Redo</div>
+            </div>
+            <div class="clear">
+                <button id="clear-button" (click)="makeClear()"></button>
+                <div id="clear-label">Clear</div>
+            </div>
+            <div class="action-section">
+                <button class=action-buttons id="save-button" (click)="makeSave()"></button>
+                <button class=action-buttons id="load-button" (click)="makeLoad()"></button>
+                <div id="action-label">Save-Load</div>
+            </div>
+        </div>
+    </body>
+</html>

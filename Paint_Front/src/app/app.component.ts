@@ -5,6 +5,63 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'Paint_Front';
+<<<<<<< Updated upstream
+=======
+
+  receivedShape: any = 'brush';
+  receiveShape(event : any) {
+    this.receivedShape = event;
+  }
+
+  receivedBorderColor: any = 'black';
+  receiveBorderColor(event : any) {
+    this.receivedBorderColor = event;
+  }
+
+  receivedFillColor: any = '#FFFFFF00';
+  receiveFillColor(event : any) {
+    this.receivedFillColor = event;
+  }
+
+  receivedWidth: any = '1';
+  receiveWidth(event : any) {
+    this.receivedWidth = event;
+  }
+
+  receivedSelect: boolean = true;
+  receiveSelect(event: any) {
+    this.receivedSelect = event;
+    //console.log(! this.receivedSelect);
+  }
+
+  receivedUndo: boolean = false;
+  receiveUndo(event: any)
+  {
+    this.receivedUndo = event;
+    console.log(event);
+  }
+  receivedRedo: boolean = false;
+  receiveRedo(event: any)
+  {
+    this.receivedRedo = event;
+  }
+  receivedClear: boolean = false;
+  receiveClear(event: any)
+  {
+    this.receivedClear = event;
+  }
+  receivedSave: boolean = false;
+  receiveSave(event: any)
+  {
+    this.receivedSave = event;
+  }
+  receivedLoad: boolean = false;
+  receiveLoad(event: any)
+  {
+    this.receivedLoad = event;
+  }
+>>>>>>> Stashed changes
 }
