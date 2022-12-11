@@ -28,9 +28,17 @@ export class ToolbarComponent implements OnInit {
     this.widthEmitter.emit(event.target.value);
   }
 
+  @Output() selectEmitter = new EventEmitter<boolean>();
+  select: boolean = true;
+  sendSelect() {
+    this.selectEmitter.emit(this.select);
+    //console.log(this.select);
+    this.select = !this.select;
+  }
+
   constructor() { }
 
   ngOnInit(): void {
   }
-  
+
 }

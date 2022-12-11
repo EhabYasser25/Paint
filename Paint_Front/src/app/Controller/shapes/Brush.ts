@@ -20,11 +20,12 @@ export class Brush implements IShape {
     
 	draw(): Konva.Line {
 		this.konv = new Konva.Line({
-			points: [this.x, this.y],
+			points: [this.x, this.y, this.x, this.y],
 			setRotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
+			lineCap: 'round',
 			draggable: true
 		});
 		return this.konv;

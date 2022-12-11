@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  
+
   title = 'Paint_Front';
 
   receivedShape: any = 'brush';
@@ -28,6 +28,12 @@ export class AppComponent {
   receivedWidth: any = '1';
   receiveWidth(event: any) {
     this.receivedWidth = event;
+  }
+
+  receivedSelect: boolean = false;
+  receiveSelect(event: any) {
+    this.receivedSelect = event;
+    console.log(! this.receivedSelect);
   }
   
 }

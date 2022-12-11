@@ -16,13 +16,13 @@ export class DrawareaComponent implements OnInit {
   @Input() Dbordercolor: any;
   @Input() Dfillcolor: any;
   @Input() Dwidth: any;
+  @Input() Dselect: any;
 
   constructor(private att: AttributesService) { }
 
   stage!: Stage;
   layer!: Layer;
   tr: any;
-  selection: boolean = true;
   shapes: Konva.Shape[] = [];
   shapefactory = new ShapeFactory(this.att);
   shape: any;
@@ -82,7 +82,7 @@ export class DrawareaComponent implements OnInit {
     });
 
     this.layer.on("mouseover", function(e) {
-      if(component.selection) {
+      if(component.Dselect) {
         document.body.style.cursor = 'move';
         e.target.draggable(true);
         drag = true;
@@ -96,7 +96,7 @@ export class DrawareaComponent implements OnInit {
     });
 
     this.stage.on("click tap", function(e) {
-      if (e.target == component.stage || !component.selection) {
+      if (e.target == component.stage || !component.Dselect) {
         component.tr.nodes([]);
         return;
       }

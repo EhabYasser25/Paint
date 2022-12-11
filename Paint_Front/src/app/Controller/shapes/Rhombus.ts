@@ -1,7 +1,7 @@
 import { IShape } from "./IShape";
 import Konva from 'konva';
 
-export class Circle implements IShape {
+export class Rhombus implements IShape {
 
 	constructor(
 		public id: number = 0,
