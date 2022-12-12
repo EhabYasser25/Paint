@@ -69,23 +69,26 @@ export class DrawareaComponent implements OnInit {
   }
 
   load() {
+    this.clear();
+    this.layer.destroy();
+    this.layer = new Konva.Layer();
+    this.stage.add(this.layer);
+    this.shapes = [];
+    this.index = 0;
     this.proxy.loadRequest().subscribe(data => {
-      for(let i = 0 ; i < data.length ; i++) {
-        this.setAttributes(data[i].shape.name , i , +data[i].shape.x , +data[i].shape.y , +data[i].shape.width , +data[i].shape.height ,
-        +data[i].shape.rotateAngle , +data[i].shape.strokeWidth , data[i].shape.borderColor , data[i].shape.fillColor);
-        this.shape = this.shapefactory.getShape(data[i].shape.name);
-        this.konv = this.shape.draw();
-        this.layer.add(this.konv).batchDraw();
+      for(let i = 0; i < data.length; i++) {
+          this.setAttributes(data[i].shape.name, +data[i].shape.id, +data[i].shape.x, +data[i].shape.y, +data[i].shape.width, +data[i].shape.height,
+            +data[i].shape.rotateAngle, +data[i].shape.strokeWidth, data[i].shape.borderColor, data[i].shape.fillColor);
+          this.drawShape(data[i].shape.name);
+          this.endDrawShape();
       }
     });
-    // this.proxy.loadRequest().subscribe((data: any[]) => {
-    //   for(let i = 0; i < data.length; i++) {
-    //       this.setAttributes(data[i].shape.name, +data[i].shape.id, +data[i].shape.x, +data[i].shape.y, +data[i].shape.width,
-    //         +data[i].shape.height, +data[i].shape.rotateAngle, +data[i].shape.strokeWidth, data[i].shape.borderColor, data[i].shape.fillColor);
-    //       this.drawShape(data[i].shape.name);
-    //       this.endDrawShape();
-    //   }
-    // });
+  }
+
+  clear() {
+    this.layer.destroy();
+    this.layer = new Konva.Layer();
+    this.stage.add(this.layer);
   }
 
   drawShape(name: any) {
