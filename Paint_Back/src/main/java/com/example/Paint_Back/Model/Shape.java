@@ -11,13 +11,13 @@ public class Shape implements Cloneable{
     private String y;
     private String width;
     private String height;
-    private ArrayList<String> points;
+    private ArrayList<Integer> points;
     private String rotateAngle;
     private String strokeWidth;
     private String borderColor;
     private String fillColor;
 
-    public Shape(String name, String id,String x, String y, String width, String height, ArrayList<String> points,
+    public Shape(String name, String id,String x, String y, String width, String height, ArrayList<Integer> points,
                  String rotateAngle, String strokeWidth, String borderColor, String fillColor){
         this.x = x;
         this.y = y;
@@ -32,7 +32,7 @@ public class Shape implements Cloneable{
         this.strokeWidth = strokeWidth;
     }
 
-    public void setShapeProperties(String name, String id,String x, String y, String width, String height, ArrayList<String> points,
+    public void setShapeProperties(String name, String id,String x, String y, String width, String height, ArrayList<Integer> points,
                                    String rotateAngle, String strokeWidth, String borderColor, String fillColor){
         this.x = x;
         this.y =y;
@@ -91,11 +91,11 @@ public class Shape implements Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException {return super.clone();}
 
-    public ArrayList<String> getPoints() {
+    public ArrayList<Integer> getPoints() {
         return points;
     }
 
-    public void setPoints(ArrayList<String> points) {
+    public void setPoints(ArrayList<Integer> points) {
         this.points = points;
     }
 }
