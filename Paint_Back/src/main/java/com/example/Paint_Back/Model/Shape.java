@@ -1,16 +1,29 @@
 package com.example.Paint_Back.Model;
 
+import java.util.ArrayList;
+
 public class Shape implements Cloneable{
 
 
-    private String name, id, x, y, width, height, rotateAngle, strokeWidth, borderColor, fillColor;
+    private String name;
+    private String id;
+    private String x;
+    private String y;
+    private String width;
+    private String height;
+    private ArrayList<String> points;
+    private String rotateAngle;
+    private String strokeWidth;
+    private String borderColor;
+    private String fillColor;
 
-    public Shape(String name, String id,String x, String y, String width, String height,
+    public Shape(String name, String id,String x, String y, String width, String height, ArrayList<String> points,
                  String rotateAngle, String strokeWidth, String borderColor, String fillColor){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.points = points;
         this.borderColor = borderColor;
         this.fillColor = fillColor;
         this.name = name;
@@ -19,12 +32,13 @@ public class Shape implements Cloneable{
         this.strokeWidth = strokeWidth;
     }
 
-    public void setShapeProperties(String name, String id,String x, String y, String width, String height,
+    public void setShapeProperties(String name, String id,String x, String y, String width, String height, ArrayList<String> points,
                                    String rotateAngle, String strokeWidth, String borderColor, String fillColor){
         this.x = x;
         this.y =y;
         this.width = width;
         this.height = height;
+        this.points = points;
         this.borderColor = borderColor;
         this.fillColor = fillColor;
         this.name = name;
@@ -77,4 +91,11 @@ public class Shape implements Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException {return super.clone();}
 
+    public ArrayList<String> getPoints() {
+        return points;
+    }
+
+    public void setPoints(ArrayList<String> points) {
+        this.points = points;
+    }
 }

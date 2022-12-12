@@ -10,6 +10,7 @@ export class Ellipse implements IShape {
 		public y: number = 0,
 		public width: number = 1,
 		public height: number = 1,
+		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = '#000000',
@@ -26,7 +27,6 @@ export class Ellipse implements IShape {
             y: this.y,
             radiusX: this.width,
             radiusY: this.height,
-            draggable:true,
             rotation: this.rotateAngle,
             stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
@@ -36,7 +36,7 @@ export class Ellipse implements IShape {
     }
 
     continueDraw(width: number, height: number): void {
-		this.konv.x(this.x + width/2).y(this.y + height/2);
-		this.konv.radiusX(Math.abs(width/2)).radiusY(Math.abs(height/2));
+		this.konv.radiusX(width).radiusY(height);
+		this.konv.name(`${width} ${height}`);
 	}
 }

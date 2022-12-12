@@ -11,6 +11,7 @@ export class Star implements IShape {
         public sides: number = 0,
 		public width: number = 1,
 		public height: number = 1,
+		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -36,10 +37,10 @@ export class Star implements IShape {
 	}
 
 	continueDraw(width: number, height: number): void {
-		// this.konv.x(this.x + width/2).y(this.y + height/2);
 		const radius = Math.sqrt(width*width + height*height);
 		this.konv.outerRadius(radius);
         this.konv.innerRadius(radius/2);
+		this.konv.name(`${width} ${height}`);
 	}
 
 }

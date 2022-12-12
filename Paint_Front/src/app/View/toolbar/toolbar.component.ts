@@ -9,15 +9,16 @@ import { ColorPicker } from 'primeng/colorpicker';
 
 export class ToolbarComponent implements OnInit {
 
+  selection: string = 'brush';
 
   @Output() shapeEmitter = new EventEmitter<string>();
   sendShape(event: any)
   {
     this.shapeEmitter.emit(event);
-    if(this.toggle) {
+    if(!this.select) {
       this.sendSelect();
-      this.enableDisableRule();
     }
+    this.selection = event;
   }
 
   border : boolean = true;
@@ -67,8 +68,8 @@ export class ToolbarComponent implements OnInit {
   sendSelect()
   {
     this.selectEmitter.emit(this.select);
-    //console.log(this.select);
     this.select = !this.select;
+    this.selection = 'select';
   }
 
   undo: boolean = true;
@@ -111,13 +112,6 @@ export class ToolbarComponent implements OnInit {
     this.load = !this.load;
   }
 
-  toggle: boolean = false;
-  status: string = 'Enable';
-
-enableDisableRule() {
-    this.toggle = !this.toggle;
-    this.status = this.toggle ? 'Enable' : 'Disable';
-}
   constructor() { }
 
   ngOnInit(): void

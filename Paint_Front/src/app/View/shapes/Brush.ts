@@ -10,6 +10,7 @@ export class Brush implements IShape {
 		public y: number = 0,
 		public width: number = 0,
 		public height: number = 0,
+		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -17,12 +18,11 @@ export class Brush implements IShape {
 	) { }
 
 	konv: any;
-    points: number[] = [];
     
 	draw(): Konva.Line {
 		this.konv = new Konva.Line({
 			id: String(this.id),
-			points: [this.x, this.y, this.x, this.y],
+			points: this.points,
 			rotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
@@ -36,6 +36,7 @@ export class Brush implements IShape {
         this.points.push(this.x + width);
         this.points.push(this.y + height);
         this.konv.points(this.points);
+		this.konv.name(`${width} ${height}`);
 	}
 
 }

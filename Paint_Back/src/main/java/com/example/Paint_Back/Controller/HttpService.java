@@ -22,7 +22,7 @@ public class HttpService {
     void AddShape (@RequestBody Shape shape) { CurrentSession.AddShape(shape); }
 
     @PostMapping("load")
-    JSONArray load(){ return new Load().LoadShapes();}
+    Object load(){ return new Load().LoadShapes();}
 
     @PostMapping("save")
     void save(){ new Save(CurrentSession);}

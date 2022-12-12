@@ -53,14 +53,13 @@ export class Proxy{
     }
 
     destroyShape(konv: string) {
-        
         this.http.postRequest("delete", konv).subscribe();
     }
 
     sendChange(konv: Konva.Shape) {
         this.http.postRequest("change",
-        `${konv.id()} ${konv.x()} ${konv.y()} `  + 
-        `${konv.width()} ${konv.height()} ${konv.stroke()} ${konv.fill()}`).subscribe();
+        `${konv.id()} ${konv.x()} ${konv.y()} ${konv.width()} ${konv.height()} ` + 
+        `${konv.rotation()} ${konv.strokeWidth()} ${konv.stroke()} ${konv.fill()}`).subscribe();
     }
     
 }

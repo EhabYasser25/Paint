@@ -6,17 +6,17 @@ import java.io.FileReader;
 
 public class Load {
 
-    JSONArray List;
-    public JSONArray LoadShapes(){
+
+    public Object LoadShapes(){
         JSONParser parser = new JSONParser();
+        Object jsonObject;
         try(FileReader file = new FileReader(".\\.\\.\\.\\.\\myJson.json")){
-            Object obj = parser.parse(file);
-            List = (JSONArray) obj;
-            System.out.println(List);
+            jsonObject = parser.parse(file);
+            System.out.println(jsonObject);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         System.out.println("done load");
-        return List;
+        return jsonObject;
     }
 }

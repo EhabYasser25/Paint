@@ -51,44 +51,21 @@ export class DrawareaComponent implements OnInit {
     this.eventListeners();
   }
 
-  setAttributes(name: any, id: any, x: any, y: any, width: any, height: any, rotateAngle: any, strokeWidth: any, borderColor: any, fillColor: any) {
-    this.att.name = name;
-    this.att.id = id;
-    this.att.x = x;
-    this.att.y = y;
-    this.att.width = width;
-    this.att.height = height;
-    this.att.rotateAngle = rotateAngle;
-    this.att.strokeWidth = strokeWidth;
-    this.att.borderColor = borderColor;
-    this.att.fillColor = fillColor;
-  }
-
   save() {
     this.proxy.saveRequest();
   }
 
   load() {
     this.clear();
-    this.layer.destroy();
-    this.layer = new Konva.Layer();
-    this.stage.add(this.layer);
-    this.shapes = [];
-    this.index = 0;
     this.proxy.loadRequest().subscribe(data => {
-      for(let i = 0; i < data.length; i++) {
-          this.setAttributes(data[i].shape.name, +data[i].shape.id, +data[i].shape.x, +data[i].shape.y, +data[i].shape.width, +data[i].shape.height,
-            +data[i].shape.rotateAngle, +data[i].shape.strokeWidth, data[i].shape.borderColor, data[i].shape.fillColor);
-          this.drawShape(data[i].shape.name);
+      console.log(data);
+      for(let i = 0; i < data.shape.length; i++) {
+          this.att.setAttributes(data.shape[i].name, +data.shape[i].id, +data.shape[i].x, +data.shape[i].y, +data.shape[i].width, +data.shape[i].height,
+            data.shape[i].points, +data.shape[i].rotateAngle, +data.shape[i].strokeWidth, data.shape[i].borderColor, data.shape[i].fillColor);
+          this.drawShape(data.shape[i].name);
           this.endDrawShape();
       }
     });
-  }
-
-  clear() {
-    this.layer.destroy();
-    this.layer = new Konva.Layer();
-    this.stage.add(this.layer);
   }
 
   drawShape(name: any) {
@@ -102,6 +79,12 @@ export class DrawareaComponent implements OnInit {
     this.index++;
   }
 
+  clear() {
+    this.layer.destroyChildren();
+    this.shapes = [];
+    this.index = 0;
+  }
+
   eventListeners() {
 
     const component = this;
@@ -111,7 +94,7 @@ export class DrawareaComponent implements OnInit {
       component.tr.nodes([]);
       component.drawing = true;
       let pos = component.stage.getPointerPosition();
-      component.setAttributes(component.Dshape, component.index, pos?.x, pos?.y, 1, 1, 0, component.Dwidth, component.Dbordercolor, component.Dfillcolor);
+      component.att.setAttributes(component.Dshape, component.index, pos?.x, pos?.y, 1, 1, [pos?.x, pos?.y, pos?.x, pos?.y], 0, +component.Dwidth, component.Dbordercolor, component.Dfillcolor);
       console.log(component.Dshape);
       component.drawShape(component.Dshape);
     });
@@ -133,17 +116,20 @@ export class DrawareaComponent implements OnInit {
 
     this.stage.on("mouseup",  function(e) {
       if(component.drawing) {
+      component.drawing = false;
         component.endDrawShape();
-        component.shape.width = component.konv.width();
-        component.shape.height = component.konv.height();
+        var dimensions = String(component.konv.name()).split(" ", 2);
+        component.shape.width = Number(dimensions[0]);
+        component.shape.height = Number(dimensions[1]);
+        if(component.konv.points != undefined) component.shape.points = component.konv.points();
         component.proxy.createShape(component.shape);
       }
       else if(e.target != component.stage) {
+        component.drawing = false;
         component.konv = e.target;
         component.proxy.sendChange(component.konv);
       }
       console.log(component.shapes);
-      component.drawing = false;
     });
 
     this.layer.on("mouseover", function(e) {

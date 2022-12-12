@@ -41,7 +41,7 @@ body{
     cursor: pointer;
   }
 .shape-button:hover {
-    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+    filter: brightness(.9);          /*opacity momkna hna*/
     color: black;
   }
 .shape-button:active {
@@ -69,6 +69,9 @@ body{
 }
 .red{
     background-color: #ff0000;
+}
+.white{
+    background-color: 'white';
 }
 /*-----------------------*/
 .invisable{
@@ -244,7 +247,7 @@ body{
     width: 160px;
 }
 .tool-button{
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     margin: 2px;
     width: 40px;
     height: 40px;
@@ -254,7 +257,7 @@ body{
     transform: translateY(4px);
 }
 .tool-button:hover {
-    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+    filter: brightness(.9);            /*opacity momkna hna*/
     color: black;
   }
 

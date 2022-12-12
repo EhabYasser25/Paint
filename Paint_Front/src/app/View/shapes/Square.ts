@@ -10,6 +10,7 @@ export class Square implements IShape {
 		public y: number = 0,
 		public width: number = 1,
 		public height: number = 1,
+		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -35,6 +36,7 @@ export class Square implements IShape {
 
 	continueDraw(width: number, height?: number): void {
 		this.konv.width(width).height(width);
+		this.konv.name(`${width} ${height}`);
 	}
 
 }

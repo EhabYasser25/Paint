@@ -13,6 +13,7 @@ export class Polygon implements IShape{
         public sides: number = 0,
 		public width: number = 1,
 		public height: number = 1,
+		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
 		public borderColor: string = "#000000FF",
@@ -40,5 +41,6 @@ export class Polygon implements IShape{
     continueDraw(width: number, height: number): void {
         const radius = Math.sqrt(width*width + height*height);
 		this.konv.radius(radius);
+		this.konv.name(`${width} ${height}`);
 	}
 }

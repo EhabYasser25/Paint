@@ -10,32 +10,21 @@ import java.util.Vector;
 
 @Component
 public class Session {      //Singleton class
-    private JSONArray ShapesList = new JSONArray();
-    public JSONArray getShapesList() {return ShapesList;}
-    private Vector<Shape> shapes;
+    private Vector<Shape> shapes = new Vector<>();
     private Stack<String[]> undoStack = new Stack<String[]>();;
     private Stack<String[]> redoStack = new Stack<String[]>();
 
     //int i=0;
     public void AddShape (Shape shape) {
-        JSONObject obj = new JSONObject();
-        obj.put("name",shape.getName());
-        obj.put("id",shape.getId());
-        obj.put("x",shape.getX());
-        obj.put("y",shape.getY());
-        obj.put("width",shape.getWidth());
-        obj.put("height",shape.getHeight());
-        obj.put("rotateAngle",shape.getRotateAngle());
-        obj.put("strokeWidth",shape.getStrokeWidth());
-        obj.put("borderColor",shape.getBorderColor());
-        obj.put("fillColor",shape.getFillColor());
 
-        JSONObject obj2 = new JSONObject();
-        obj2.put("shape",obj);
-        if( shape.getId().equals("0") ) ShapesList.clear();
-        ShapesList.add(obj2);
+        if(shape.getId().equals("0"))
+            shapes.clear();
+        shapes.add(shape);
 
-        //System.out.println(ShapesList.get(i++));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("shape", shapes);
+
+        System.out.println(shape.getPoints());
     }
 
     @Bean
