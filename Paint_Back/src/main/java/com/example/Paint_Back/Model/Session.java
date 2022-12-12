@@ -18,8 +18,6 @@ public class Session {
         return this.shapes;
     }
 
-
-
     public Vector<Shape> getShapes() {
         return shapes;
     }

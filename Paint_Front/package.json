@@ -18,9 +18,11 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@syncfusion/ej2-angular-base": "^20.3.56",
     "canvas": "^2.10.2",
     "konva": "^8.3.14",
     "ng2-konva": "^6.0.0",
+    "primeng": "^14.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
