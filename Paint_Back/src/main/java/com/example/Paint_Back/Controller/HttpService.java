@@ -4,7 +4,6 @@ import com.example.Paint_Back.Model.Load;
 import com.example.Paint_Back.Model.Save;
 import com.example.Paint_Back.Model.Session;
 import com.example.Paint_Back.Model.Shape;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
