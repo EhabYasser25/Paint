@@ -8,7 +8,7 @@ import { HttpService } from 'src/app/Controller/http/http.service';
 import { Proxy } from 'src/app/Controller/Proxy/Proxy';
 import { ShapeFactory } from 'src/app/View/shapes/ShapeFactory';
 import { IShape } from '../shapes/IShape';
-import { take, delay } from 'rxjs';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-drawarea',
@@ -70,19 +70,6 @@ export class DrawareaComponent implements OnInit {
       }
     });
   }
-
-  // load() {
-  //   this.clear();
-  //   this.proxy.loadRequest().subscribe(data => {
-  //     console.log( data);
-  //     for(let i = 0; i < data.length; i++) {
-  //         this.att.setAttributes(data[i].name, +data[i].id, +data[i].x, +data[i].y, +data[i].width, +data[i].height,
-  //             data[i].points, +data[i].rotateAngle, +data[i].strokeWidth, data[i].borderColor, data[i].fillColor);
-  //         this.drawShape(data[i].name);
-  //         this.endDrawShape();
-  //     }
-  //   });
-  // }
 
   drawShape(name: any) {
     this.shape = this.shapefactory.getShape(name);
