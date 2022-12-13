@@ -4,11 +4,11 @@
     (fillColorEmitter)="receiveFillColor($event)"
     (widthEmitter)="receiveWidth($event)"
     (selectEmitter)="receiveSelect($event)"
-    (undoEmitter)="receiveUndo($event)"
-    (redoEmitter)="receiveRedo($event)"
+    (borderEmitter)="receiveBorder($event)"
     (clearEmitter)="receiveClear($event)"
     (saveEmitter)="receiveSave($event)"
     (loadEmitter)="receiveLoad($event)"
+    [buttonsActions]="buttonsAction"
 
  ></app-toolbar>
 <app-drawarea class="draw"
@@ -17,9 +17,7 @@
  [Dfillcolor] = "receivedFillColor"
  [Dwidth] = "receivedWidth"
  [Dselect] = "receivedSelect"
- [Dundo] = "receivedUndo"
- [Dredo] = "receivedRedo"
- [Dclear] = "receivedClear"
- [Dsave] = "receivedSave"
- [Dload] = "receivedLoad"
+ [Dshape]= "receivedShape"
+ [buttonsActions]="buttonsAction"
+ [border]="receivedBorder"
  ></app-drawarea>

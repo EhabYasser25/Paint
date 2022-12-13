@@ -14,38 +14,43 @@ export class Proxy{
 
     public resolveInstruction(instruction: string): void{
         let action: string[] = instruction.split(' ');
-        alert(action)
         let shape = this.shapes[Number(action[1])];
         switch(action[0]){
+            case "create":
+                shape.visible(true);
+                break
 
             case "delete":
-                shape.destroy();
-                break;
-            
-            case "move":
-                shape.x(Number(action[2]));
-                shape.y(Number(action[3]));
+                shape.visible(false);
                 break;
 
-            case "color":
-                shape.stroke(action[2]);
-                shape.fill(action[3]);
-                break;
-            
-            case "resize":
-                shape.width(Number(action[2]));
-                shape.height(Number(action[3]));
-                break;
-
+            case "change":
+                shape.x(Number(action[2]))
+                shape.y(Number(action[3]))
+                shape.width(Number(action[4]))
+                shape.height(Number(action[5]))
+                shape.rotation(Number(action[6]))
+                shape.strokeWidth(Number(action[7]))
+                shape.stroke(action[8])
+                shape.fill(action[9])
         }
     }
 
     saveRequest() {
-        this.http.postRequest("save").subscribe();
+        this.http.postRequest("saveJson").subscribe();
+        console.log("save");
     }
 
     loadRequest() {
-        return this.http.postRequest("load");
+        return this.http.postRequest("loadJson");
+    }
+
+    undoRequest() {
+        return this.http.getRequest("undo");
+    }
+
+    redoRequest() {
+        return this.http.getRequest("redo");
     }
 
     createShape(shape: IShape) {
@@ -53,6 +58,7 @@ export class Proxy{
     }
 
     destroyShape(konv: string) {
+        console.log(konv);
         this.http.postRequest("delete", konv).subscribe();
     }
 

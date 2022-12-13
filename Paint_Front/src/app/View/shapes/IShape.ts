@@ -13,6 +13,6 @@ export interface IShape {
     fillColor: string;
 
     draw(): any;
-    continueDraw(width: number, height: number): void;
+    continueDraw(width: any, height: any): void;
 
 }

@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe } from '@angular/core';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Stage } from 'konva/lib/Stage';
+import { ButtonService } from 'src/app/Controller/ButtonService/button.service';
 import { AttributesService } from 'src/app/Controller/attributes/attributes.service';
 import { HttpService } from 'src/app/Controller/http/http.service';
 import { Proxy } from 'src/app/Controller/Proxy/Proxy';
 import { ShapeFactory } from 'src/app/View/shapes/ShapeFactory';
 import { IShape } from '../shapes/IShape';
+import { take, delay } from 'rxjs';
 
 @Component({
   selector: 'app-drawarea',
@@ -21,25 +23,26 @@ export class DrawareaComponent implements OnInit {
   @Input() Dfillcolor : any;
   @Input() Dwidth : any;
   @Input() Dselect : any;
-  @Input() Dundo : any;
-  @Input() Dredo : any;
+  @Input() border : any;
+  @Input() Daction : string;
   @Input() Dclear : any;
   @Input() Dsave : any;
   @Input() Dload : any;
+  @Input() buttonsActions: ButtonService;
+  @Output() resetAction = new EventEmitter;
 
   constructor(private att: AttributesService, private http: HttpService) { }
 
-  stage!: Stage;
-  layer!: Layer;
-  tr!: Konva.Transformer;
+  stage: Stage;
+  layer: Layer;
+  tr: Konva.Transformer;
   shapes: Konva.Shape[] = [];
-  index: number = 0;
   proxy: Proxy = new Proxy(this.shapes, this.http);
   shapefactory = new ShapeFactory(this.att);
-  shape!: IShape;
-  konv!: any;
+  shape: IShape;
+  konv: any;
   drawing: boolean = false;
-  erase: boolean = false;
+  erasing: boolean = false;
 
   ngOnInit(): void {
     this.stage = new Konva.Stage({height: window.innerHeight, width: window.innerWidth, container: "draw"});
@@ -59,14 +62,27 @@ export class DrawareaComponent implements OnInit {
     this.clear();
     this.proxy.loadRequest().subscribe(data => {
       console.log(data);
-      for(let i = 0; i < data.shape.length; i++) {
-          this.att.setAttributes(data.shape[i].name, +data.shape[i].id, +data.shape[i].x, +data.shape[i].y, +data.shape[i].width, +data.shape[i].height,
-            data.shape[i].points, +data.shape[i].rotateAngle, +data.shape[i].strokeWidth, data.shape[i].borderColor, data.shape[i].fillColor);
-          this.drawShape(data.shape[i].name);
-          this.endDrawShape();
+      for(let i = 0; i < data.length; i++) {
+          this.att.setAttributes(data[i].name, +data[i].id, +data[i].x, +data[i].y, +data[i].width, +data[i].height,
+            data[i].points, +data[i].rotateAngle, +data[i].strokeWidth, data[i].borderColor, data[i].fillColor);
+          this.drawShape(data[i].name);
+          this.shapes.push(this.konv);
       }
     });
   }
+
+  // load() {
+  //   this.clear();
+  //   this.proxy.loadRequest().subscribe(data => {
+  //     console.log( data);
+  //     for(let i = 0; i < data.length; i++) {
+  //         this.att.setAttributes(data[i].name, +data[i].id, +data[i].x, +data[i].y, +data[i].width, +data[i].height,
+  //             data[i].points, +data[i].rotateAngle, +data[i].strokeWidth, data[i].borderColor, data[i].fillColor);
+  //         this.drawShape(data[i].name);
+  //         this.endDrawShape();
+  //     }
+  //   });
+  // }
 
   drawShape(name: any) {
     this.shape = this.shapefactory.getShape(name);
@@ -74,62 +90,101 @@ export class DrawareaComponent implements OnInit {
     this.layer.add(this.konv);
   }
 
-  endDrawShape() {
-    this.shapes.push(this.konv);
-    this.index++;
-  }
-
   clear() {
     this.layer.destroyChildren();
     this.shapes = [];
-    this.index = 0;
   }
 
   eventListeners() {
 
     const component = this;
 
+    this.buttonsActions.$action.subscribe({
+      next: (action: string) => {
+        if(action != 'color' && action != 'width') this.tr.nodes([]);
+        switch(action) {
+          case 'undo':
+            this.proxy.undoRequest().pipe(take(1)).subscribe(
+              data => {
+                if(this.proxy.validateInstruction(data)) this.proxy.resolveInstruction(data);
+              }
+            );
+            break;
+        
+          case 'redo':
+            this.proxy.redoRequest().pipe(take(1)).subscribe(
+              data => {
+                if(this.proxy.validateInstruction(data)) this.proxy.resolveInstruction(data);
+              }
+            );
+            break;
+            
+          case 'save':
+            this.save();
+            break;
+
+          case 'load':
+            this.load();
+            break;
+
+          case 'clear':
+            this.clear()
+            break;
+
+          case 'color':
+            if(this.tr.nodes()[0] == undefined) break;
+            this.konv = this.tr.nodes()[0];
+            if(this.border) this.konv.stroke(this.Dbordercolor);
+            else this.konv.fill(this.Dfillcolor);
+            break;
+
+          case 'width':
+            if(this.tr.nodes()[0] == undefined) break;
+            this.konv = this.tr.nodes()[0];
+            this.konv.strokeWidth(Number(this.Dwidth));
+            break;
+        }
+      }
+    });
+
     this.stage.on("mousedown", function() {
       if(component.Dselect) return;
+      if(component.Dshape == 'erase') {
+        component.tr.nodes([]);
+        component.drawing = false;
+        component.erasing = true;
+        return;
+      }
       component.tr.nodes([]);
       component.drawing = true;
       let pos = component.stage.getPointerPosition();
-      component.att.setAttributes(component.Dshape, component.index, pos?.x, pos?.y, 1, 1, [pos?.x, pos?.y, pos?.x, pos?.y], 0, +component.Dwidth, component.Dbordercolor, component.Dfillcolor);
-      console.log(component.Dshape);
+      component.att.setAttributes(component.Dshape, component.shapes.length, pos.x, pos.y, 1, 1, [pos.x, pos.y, pos.x, pos.y], 0, +component.Dwidth, component.Dbordercolor, component.Dfillcolor)
+      console.log(component.Dwidth);
       component.drawShape(component.Dshape);
     });
 
     this.stage.on("mousemove", function(e) {
-      if(component.erase) {
-        if(e.target == component.stage) return;
-        component.proxy.destroyShape(String(component.shapes.indexOf(component.konv)));
+      if(component.erasing && e.target != component.stage) {
+        component.proxy.destroyShape(e.target.id());
         e.target.visible(false);
+        return;
       }
       if(!component.drawing) return;
       let pos = component.stage.getPointerPosition();
-      let endX: any = pos?.x;
-      let endY: any = pos?.y;
-      const width = endX - component.att.x;
-      const height = endY - component.att.y;
-      component.shape.continueDraw(width, height);
+      component.shape.continueDraw(pos.x - component.att.x, pos.y - component.att.y);
     });
 
     this.stage.on("mouseup",  function(e) {
+      if(component.erasing) component.erasing = false;
       if(component.drawing) {
-      component.drawing = false;
-        component.endDrawShape();
+        component.drawing = false;
+        component.shapes.push(component.konv);
         var dimensions = String(component.konv.name()).split(" ", 2);
         component.shape.width = Number(dimensions[0]);
         component.shape.height = Number(dimensions[1]);
         if(component.konv.points != undefined) component.shape.points = component.konv.points();
         component.proxy.createShape(component.shape);
       }
-      else if(e.target != component.stage) {
-        component.drawing = false;
-        component.konv = e.target;
-        component.proxy.sendChange(component.konv);
-      }
-      console.log(component.shapes);
     });
 
     this.layer.on("mouseover", function(e) {
@@ -145,16 +200,32 @@ export class DrawareaComponent implements OnInit {
     });
 
     this.stage.on("click tap", function(e) {
-      if (e.target == component.stage || !component.Dselect) {
+      if (e.target.getParent() != component.layer || !component.Dselect) {
         component.tr.nodes([]);
         return;
       }
       component.tr.nodes([e.target]);
-      console.log(e.target.id());
     });
 
-    this.layer.on("dragstart", function() {
+    this.layer.on("dragmove", function() {
       component.tr.nodes([]);
+    });
+
+    this.layer.on("dragend", function(e) {
+      if(e.target.getClassName() == 'Transformer') return;
+      component.drawing = false;
+      component.konv = e.target;
+      component.proxy.sendChange(component.konv);
+    });
+
+    this.tr.on('transformend', function(e) {
+      if (e.target.getParent() != component.layer) return;
+      let shape = component.shapes[Number(e.target.id())];
+      shape.width(shape.width() * shape.scaleX());
+      shape.height(shape.height() * shape.scaleY());
+      shape.scaleX(1);
+      shape.scaleY(1);
+      component.proxy.sendChange(component.konv);
     });
     
   }

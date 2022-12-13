@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ButtonService } from './Controller/ButtonService/button.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'Paint_Front';
+
+  constructor(public buttonsAction: ButtonService){}
 
   receivedShape: any = 'brush';
   receiveShape(event : any) {
@@ -24,7 +27,7 @@ export class AppComponent {
     this.receivedFillColor = event;
   }
 
-  receivedWidth: any = '1';
+  receivedWidth: any = '7';
   receiveWidth(event : any) {
     this.receivedWidth = event;
   }
@@ -35,17 +38,11 @@ export class AppComponent {
     //console.log(! this.receivedSelect);
   }
 
-  receivedUndo: boolean = false;
-  receiveUndo(event: any)
-  {
-    this.receivedUndo = event;
-    console.log(event);
+  receivedBorder: boolean = true;
+  receiveBorder(event: any) {
+    this.receivedBorder = event;
   }
-  receivedRedo: boolean = false;
-  receiveRedo(event: any)
-  {
-    this.receivedRedo = event;
-  }
+
   receivedClear: boolean = false;
   receiveClear(event: any)
   {

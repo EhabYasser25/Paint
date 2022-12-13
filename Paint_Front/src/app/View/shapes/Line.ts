@@ -34,7 +34,6 @@ export class Line implements IShape {
 
 	continueDraw(width: number, height: number): void {
 		this.konv.points([this.x, this.y, this.x + width, this.y + height]);
-		this.konv.name(`${width} ${height}`);
 	}
 
 }

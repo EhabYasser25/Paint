@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ColorPicker } from 'primeng/colorpicker';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { ButtonService } from 'src/app/Controller/ButtonService/button.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,6 +8,13 @@ import { ColorPicker } from 'primeng/colorpicker';
 })
 
 export class ToolbarComponent implements OnInit {
+
+  @Output() actionEmitter = new EventEmitter<string>();
+  @Input() buttonsActions: ButtonService;
+
+  makeAction(event) {
+    this.buttonsActions.setAction(event);
+  }
 
   selection: string = 'brush';
 
@@ -21,9 +28,11 @@ export class ToolbarComponent implements OnInit {
     this.selection = event;
   }
 
+  @Output() borderEmitter = new EventEmitter<boolean>();
   border : boolean = true;
-  colorStyle(event: any)
+  colorStyle(event: boolean)
   {
+    this.borderEmitter.emit(event);
     this.border = event;
   }
 
@@ -55,6 +64,7 @@ export class ToolbarComponent implements OnInit {
       this.fColor = event.target.value;
       this.fillColorEmitter.emit(event.target.value);
     }
+    this.makeAction('color');
   }
 
   @Output() widthEmitter = new EventEmitter<string>();
@@ -72,50 +82,8 @@ export class ToolbarComponent implements OnInit {
     this.selection = 'select';
   }
 
-  undo: boolean = true;
-  @Output() undoEmitter = new EventEmitter<boolean>();
-  makeUndo()
-  {
-      this.undoEmitter.emit(this.undo);
-      this.undo = !this.undo;
-  }
-
-  redo: boolean = true;
-  @Output() redoEmitter = new EventEmitter<boolean>();
-  makeRedo()
-  {
-    this.redoEmitter.emit(this.redo);
-    this.redo = !this.redo;
-  }
-
   clear: boolean = true;
-  @Output() clearEmitter = new EventEmitter<boolean>();
-  makeClear()
-  {
-    this.clearEmitter.emit(this.clear);
-    this.clear = !this.clear;
-  }
-
-  save: boolean = true;
-  @Output() saveEmitter = new EventEmitter<boolean>();
-  makeSave()
-  {
-    this.saveEmitter.emit(this.save);
-    this.save = !this.save;
-  }
-
-  load: boolean = true;
-  @Output() loadEmitter = new EventEmitter<boolean>();
-  makeLoad()
-  {
-    this.loadEmitter.emit(this.load);
-    this.load = !this.load;
-  }
-
-  constructor() { }
-
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     let picker = document.getElementById('colorpicker');
     picker?.addEventListener('input' , (e: any) => this.sendColorP(e));
   }

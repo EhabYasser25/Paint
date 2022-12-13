@@ -26,8 +26,8 @@ export class AttributesService {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.points = points;
-    console.log(points);
+    this.points = [];
+    for(let i = 0; i < points.length; i++) this.points.push(Number(points[i]));
     this.rotateAngle = rotateAngle;
     this.strokeWidth = strokeWidth;
     this.borderColor = borderColor;

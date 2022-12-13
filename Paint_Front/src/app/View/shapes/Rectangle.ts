@@ -4,7 +4,7 @@ import Konva from 'konva';
 export class Rectangle implements IShape {
 
 	constructor(
-		public name: string = 'rhombus',
+		public name: string = 'rectangle',
 		public id: number = 0,
 		public x: number = 0,
 		public y: number = 0,
@@ -13,7 +13,7 @@ export class Rectangle implements IShape {
 		public points: number[] = [0, 0, 0, 0],
 		public rotateAngle: number = 0,
 		public strokeWidth: number = 0,
-		public borderColor: string = "#000000FF",
+		public borderColor: string = "#FF0000FF",
 		public fillColor: string = "#FFFFFF00"
 	) { }
 

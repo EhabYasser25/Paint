@@ -11,7 +11,6 @@ import { HttpService } from './Controller/http/http.service';
 import { ToolbarComponent } from './View/toolbar/toolbar.component';
 import { DrawareaComponent } from './View/drawarea/drawarea.component';
 
-import { KonvaModule } from 'ng2-konva';
 
 enableRipple(true);
 
@@ -26,7 +25,6 @@ enableRipple(true);
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    KonvaModule,
     ColorPickerModule
   ],
   providers: [HttpService],

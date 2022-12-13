@@ -36,7 +36,6 @@ export class Brush implements IShape {
         this.points.push(this.x + width);
         this.points.push(this.y + height);
         this.konv.points(this.points);
-		this.konv.name(`${width} ${height}`);
 	}
 
 }
