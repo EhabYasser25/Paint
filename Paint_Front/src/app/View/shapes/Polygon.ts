@@ -20,27 +20,33 @@ export class Polygon implements IShape{
 		public fillColor: string = "#FFFFFF00"
     ) { }
 
-    konv: any;
+    konvaModel: Konva.RegularPolygon;
 
     draw(): Konva.RegularPolygon{
-        this.konv = new Konva.RegularPolygon({
+        this.konvaModel = new Konva.RegularPolygon({
 			id: String(this.id),
             x: this.x,
             y: this.y,
             sides: this.sides,
-            radius: Math.sqrt(this.width*this.width + this.height*this.height),
+            width: this.width,
+            height: this.height,
+            radius: Math.max(this.width, this.height) / 2,
             draggable:true,
             rotation: this.rotateAngle,
             stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor
 		});
-		return this.konv;
+		return this.konvaModel;
     }
 
     continueDraw(width: number, height: number): void {
-        const radius = Math.sqrt(width*width + height*height);
-		this.konv.radius(radius);
-		this.konv.name(`${width} ${height}`);
+        const radius = Math.max(width, height);
+		this.konvaModel.radius(radius);
+        this.width = width * 2; this.height = height * 2;
+	}
+
+    clone(): Polygon {
+		return new Polygon(this.name, this.id, this.x, this.y, this.sides,this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
 	}
 }

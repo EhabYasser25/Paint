@@ -44,7 +44,7 @@ export class ShapeFactory {
             case "rectangle":
                 return new Rectangle(this.att.name, this.att.id, this.att.x, this.att.y, this.att.width, this.att.height,
                     this.att.points, this.att.rotateAngle, this.att.strokeWidth, this.att.borderColor, this.att.fillColor);
-        
+
             case "square":
                 return new Square(this.att.name, this.att.id, this.att.x, this.att.y, this.att.width, this.att.height,
                     this.att.points, this.att.rotateAngle, this.att.strokeWidth, this.att.borderColor, this.att.fillColor);

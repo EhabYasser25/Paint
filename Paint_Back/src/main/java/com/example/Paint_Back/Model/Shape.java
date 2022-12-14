@@ -7,34 +7,6 @@ public class Shape implements Cloneable{
     private ArrayList<String> points;
     private boolean deleted = false;
 
-    public Shape(Shape shape){
-        this.x = shape.x;
-        this.y = shape.y;
-        this.width = shape.width;
-        this.height = shape.height;
-        this.points = shape.points;
-        this.borderColor = shape.borderColor;
-        this.fillColor = shape.fillColor;
-        this.name = shape.name;
-        this.id = shape.id;
-        this.rotateAngle = shape.rotateAngle;
-        this.strokeWidth = shape.strokeWidth;
-    }
-
-    public Shape(String name, String id, String x, String y, String width, String height, ArrayList<String> points, String rotateAngle, String strokeWidth, String borderColor, String fillColor){
-        this.x = x;
-        this.y =y;
-        this.width = width;
-        this.height = height;
-        this.points = points;
-        this.borderColor = borderColor;
-        this.fillColor = fillColor;
-        this.name = name;
-        this.id = id;
-        this.rotateAngle = rotateAngle;
-        this.strokeWidth = strokeWidth;
-    }
-
     public void setShapeProperties(Shape shape){
         this.x = shape.x;
         this.y = shape.y;

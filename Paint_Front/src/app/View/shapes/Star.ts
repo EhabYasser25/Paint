@@ -18,29 +18,40 @@ export class Star implements IShape {
 		public fillColor: string = "#FFFFFF00"
 	) { }
 
-	konv: any;
+	konvaModel: Konva.Star
     
 	draw(): Konva.Star {
-		this.konv = new Konva.Star({
+		this.konvaModel = new Konva.Star({
 			id: String(this.id),
 			x: this.x,
 			y: this.y,
             numPoints: this.sides,
-			outerRadius: Math.sqrt(this.width*this.width + this.height*this.height),
-            innerRadius: Math.sqrt(this.width*this.width + this.height*this.height)/2,
+			width: this.width,
+            height: this.height,
+			outerRadius: Math.max(Math.abs(this.width), Math.abs(this.height)) / 2,
+            innerRadius: Math.max(Math.abs(this.width), Math.abs(this.height)) / 4,
 			rotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor
 		});
-		return this.konv;
+		return this.konvaModel;
 	}
 
 	continueDraw(width: number, height: number): void {
-		const radius = Math.sqrt(width*width + height*height);
-		this.konv.outerRadius(radius);
-        this.konv.innerRadius(radius/2);
-		this.konv.name(`${width} ${height}`);
+		if(width < 0)
+			this.konvaModel.rotation((Math.atan(height / width) * 180 / Math.PI) + 180);
+		else
+			this.konvaModel.rotation((Math.atan(height / width) * 180 / Math.PI));
+		const radius = Math.max(Math.abs(width), Math.abs(height));
+		this.konvaModel.outerRadius(radius);
+        this.konvaModel.innerRadius(radius / 2);
+		this.width = radius * 2; this.height = radius * 2;
+		this.rotateAngle = this.konvaModel.rotation()
+	}
+
+	clone(): Star {
+		return new Star(this.name, this.id, this.x, this.y, this.sides,this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
 	}
 
 }

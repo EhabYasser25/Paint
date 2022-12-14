@@ -17,10 +17,10 @@ export class Square implements IShape {
 		public fillColor: string = "#FFFFFF00"
 	) { }
 
-	konv: any;
+	konvaModel: Konva.Rect
     
 	draw(): Konva.Rect {
-		this.konv = new Konva.Rect({
+		this.konvaModel = new Konva.Rect({
 			id: String(this.id),
 			x: this.x,
 			y: this.y,
@@ -31,12 +31,17 @@ export class Square implements IShape {
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor
 		});
-		return this.konv;
+		return this.konvaModel;
 	}
 
 	continueDraw(width: number, height?: number): void {
-		this.konv.width(width).height(width);
-		this.konv.name(`${width} ${height}`);
+		let length: number = Math.max(width, height)
+		this.konvaModel.width(length).height(length);
+		this.width = length; this.height = length;
 	}
 
+	clone(): Square {
+		return new Square(this.name, this.id, this.x, this.y, this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
+	}
+	
 }

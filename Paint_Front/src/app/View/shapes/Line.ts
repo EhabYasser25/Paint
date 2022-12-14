@@ -17,10 +17,10 @@ export class Line implements IShape {
 		public fillColor: string = "#FFFFFF00"
 	) { }
 
-	konv: any;
+	konvaModel: Konva.Line;
     
 	draw(): Konva.Line {
-		this.konv = new Konva.Line({
+		this.konvaModel = new Konva.Line({
 			id: String(this.id),
 			points: this.points,
 			rotation: this.rotateAngle,
@@ -29,11 +29,16 @@ export class Line implements IShape {
 			fill: this.fillColor,
 			lineCap: 'round'
 		});
-		return this.konv;
+		return this.konvaModel;
 	}
 
 	continueDraw(width: number, height: number): void {
-		this.konv.points([this.x, this.y, this.x + width, this.y + height]);
+		this.konvaModel.points([this.x, this.y, this.x + width, this.y + height]);
+		this.width = width; this.height = height;
+	}
+
+	clone(): Line {
+		return new Line(this.name, this.id, this.x, this.y, this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
 	}
 
 }

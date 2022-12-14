@@ -1,20 +1,43 @@
+import { identifierName } from '@angular/compiler';
 import Konva from 'konva';
+import { take } from 'rxjs';
 import { IShape } from 'src/app/View/shapes/IShape';
 import { HttpService } from '../http/http.service';
 
 export class Proxy{
     
-    constructor(private shapes: Konva.Shape[], private http: HttpService){}
+    constructor(public shapes: IShape[], private http: HttpService){}
 
-    public validateInstruction(instruction: string){
-        //validation
-        return true
-        
+    public startApp(){
+        this.http.getRequest('startNewSession');
+    }
+
+    public validateInstruction(instruction: string): boolean{
+        let action: string[] = instruction.split(' ');
+        switch(action[0]){
+            case "create":
+                if(action.length != 2 || Number.isNaN(action[1]))
+                    return false;
+                    break;
+
+            case "delete":
+                if(action.length != 2 || Number.isNaN(action[1]))
+                    return false;
+                    break;
+            
+            case "change":
+                if(action.length != 10 || Number.isNaN(action[1]) || Number.isNaN(action[2]) || Number.isNaN(action[3]) || Number.isNaN(action[4]) || Number.isNaN(action[5])  || Number.isNaN(action[6])  || Number.isNaN(action[7]))
+                    return false
+                    break;
+            
+            default: return false;
+        }
+        return true 
     }
 
     public resolveInstruction(instruction: string): void{
         let action: string[] = instruction.split(' ');
-        let shape = this.shapes[Number(action[1])];
+        let shape = this.shapes[Number(action[1])].konvaModel
         switch(action[0]){
             case "create":
                 shape.visible(true);
@@ -36,13 +59,24 @@ export class Proxy{
         }
     }
 
-    saveRequest() {
-        this.http.postRequest("saveJson").subscribe();
-        console.log("save");
+    saveRequest(filePath: string, fileName: string, fileExtension: string): any {
+        switch(fileExtension){
+            case "xml":
+                return this.http.postRequest("saveXml", `${filePath}/${fileName}.${fileExtension}`)
+            case "json":
+                return this.http.postRequest("saveJson", `${filePath}/${fileName}.${fileExtension}`)
+            default:
+                alert('Enter name and path');
+        }
     }
 
-    loadRequest() {
-        return this.http.postRequest("loadJson");
+    loadRequest(filePath: string, fileName: string, fileExtension: string): any{
+        switch(fileExtension){
+            case "xml":
+                return this.http.postRequest("loadXml", `${filePath}/${fileName}.${fileExtension}`)
+            case "json":
+                return this.http.postRequest("loadJson", `${filePath}/${fileName}.${fileExtension}`)
+        }
     }
 
     undoRequest() {
@@ -53,19 +87,23 @@ export class Proxy{
         return this.http.getRequest("redo");
     }
 
+    copyShape(shapeId: number){
+        this.http.postRequest("copy", shapeId).pipe(take(1)).subscribe(e => {})
+    }
+
     createShape(shape: IShape) {
-        this.http.postRequest("create", shape).subscribe();
+        this.http.postRequest("create", shape).pipe(take(1)).subscribe(e => {})
     }
 
-    destroyShape(konv: string) {
-        console.log(konv);
-        this.http.postRequest("delete", konv).subscribe();
+    destroyShape(shapeId: string) {
+        this.http.postRequest("delete", shapeId).pipe(take(1)).subscribe(e => {})
     }
 
-    sendChange(konv: Konva.Shape) {
+    sendChange(shapeId: number) {
+        let shape = this.shapes[shapeId];
         this.http.postRequest("change",
-        `${konv.id()} ${konv.x()} ${konv.y()} ${konv.width()} ${konv.height()} ` + 
-        `${konv.rotation()} ${konv.strokeWidth()} ${konv.stroke()} ${konv.fill()}`).subscribe();
+        `${shape.id} ${shape.x} ${shape.y} ${shape.width} ${shape.height} ` + 
+        `${shape.rotateAngle} ${shape.strokeWidth} ${shape.borderColor} ${shape.fillColor}`).pipe(take(1)).subscribe(e => {})
     }
     
 }

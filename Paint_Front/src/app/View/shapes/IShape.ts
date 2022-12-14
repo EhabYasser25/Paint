@@ -1,4 +1,6 @@
-export interface IShape {
+import Konva from "konva";
+
+export interface IShape{
 
     name: string;
     id: number;
@@ -12,7 +14,10 @@ export interface IShape {
     borderColor: string;
     fillColor: string;
 
-    draw(): any;
-    continueDraw(width: any, height: any): void;
+    konvaModel: any
+
+    draw(): Konva.Shape;
+    continueDraw(width: number, height: number);
+    clone(): IShape
 
 }

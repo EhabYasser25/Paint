@@ -17,10 +17,10 @@ export class Rectangle implements IShape {
 		public fillColor: string = "#FFFFFF00"
 	) { }
 
-	konv: any;
+	konvaModel: Konva.Rect
     
 	draw(): Konva.Rect {
-		this.konv = new Konva.Rect({
+		this.konvaModel = new Konva.Rect({
 			id: String(this.id),
 			x: this.x,
 			y: this.y,
@@ -31,12 +31,15 @@ export class Rectangle implements IShape {
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor
 		});
-		return this.konv;
+		return this.konvaModel;
 	}
 
 	continueDraw(width: number, height: number): void {
-		this.konv.width(width).height(height);
-		this.konv.name(`${width} ${height}`);
+		this.konvaModel.width(width).height(height);
+		this.width = width; this.height = height;
 	}
 
+	clone(): Rectangle {
+		return new Rectangle(this.name, this.id, this.x, this.y, this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
+	}
 }

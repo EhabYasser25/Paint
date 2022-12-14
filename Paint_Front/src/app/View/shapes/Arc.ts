@@ -17,29 +17,41 @@ export class Arc implements IShape {
 		public fillColor: string = "#FFFFFF00"
 	) { }
 
-	konv: any;
+	konvaModel: Konva.Arc;
     
 	draw(): Konva.Arc {
-		this.konv = new Konva.Arc({
+		this.konvaModel = new Konva.Arc({
 			id: String(this.id),
 			x: this.x,
 			y: this.y,
-            angle: 60,
-			outerRadius: Math.sqrt(this.width*this.width + this.height*this.height),
-            innerRadius: Math.sqrt(this.width*this.width + this.height*this.height)/2,
+			width: this.width,
+			height: this.height,
+            angle: 90,
+			outerRadius: Math.max(this.width, this.height) / 2,
+            innerRadius: Math.max(this.width, this.height) / 4,
 			rotation: this.rotateAngle,
 			stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor,
 		});
-		return this.konv;
+		return this.konvaModel;
 	}
 
 	continueDraw(width: number, height: number): void {
-		const radius = Math.sqrt(width*width + height*height);
-		this.konv.outerRadius(radius);
-        this.konv.innerRadius(radius/2);
-		this.konv.name(`${width} ${height}`);
+
+		if(width < 0)
+			this.konvaModel.rotation((Math.atan(height / width) * 180 / Math.PI) + 90 + (this.konvaModel.angle() / 2));
+		else
+			this.konvaModel.rotation((Math.atan(height / width) * 180 / Math.PI) - (this.konvaModel.angle() / 2));
+		
+		const radius = Math.max(width, height);
+		this.konvaModel.outerRadius(radius);
+        this.konvaModel.innerRadius(radius/2);
+		this.width = width * 2; this.height = height * 2; this.rotateAngle = this.konvaModel.rotation()
+	}
+
+	clone(): Arc {
+		return new Arc(this.name, this.id, this.x, this.y, this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
 	}
 
 }

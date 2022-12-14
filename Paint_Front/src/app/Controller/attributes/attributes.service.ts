@@ -7,27 +7,30 @@ export class AttributesService {
 
   constructor() { }
 
-  name: any;
-  id?: any;
-  x?: any;
-  y?: any;
-  width?: any;
-  height?: any;
-  points?: any;
-  rotateAngle?: any;
-  strokeWidth?: any;
-  borderColor?: any;
-  fillColor?: any;
+  name: string;
+  id?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  points?: number[];
+  rotateAngle?: number;
+  strokeWidth?: number;
+  borderColor?: string;
+  fillColor?: string;
 
-  setAttributes(name: any, id: any, x: any, y: any, width: any, height: any, points: any, rotateAngle: any, strokeWidth: any, borderColor: any, fillColor: any) {
+  setAttributes(name: string, id: number, x: number, y: number, width: number, height: number, points: Number[], rotateAngle: number, strokeWidth: number, borderColor: string, fillColor: string) {
     this.name = name;
     this.id = id;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.points = [];
-    for(let i = 0; i < points.length; i++) this.points.push(Number(points[i]));
+    if(name == 'line' || name == 'brush'){
+      this.points = [];
+      for(let i = 0; i < points.length; i++) 
+        this.points.push(Number(points[i])) 
+    }
     this.rotateAngle = rotateAngle;
     this.strokeWidth = strokeWidth;
     this.borderColor = borderColor;

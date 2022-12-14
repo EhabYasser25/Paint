@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.Vector;
 
 
 @RestController
@@ -20,6 +19,10 @@ public class SessionHandlerService {
         this.currentSession = session;
     }
 
+    @GetMapping("startNewSession")
+    public void startNewSession() {
+        this.currentSession.destroy();
+    }
     @PostMapping("create")
     public void createNewShape(@RequestBody Shape shape) {
 
@@ -32,13 +35,31 @@ public class SessionHandlerService {
         else
             this.currentSession.getShapes().get(Integer.parseInt(shape.getId())).setDeleted(false);
 
+
         this.currentSession.getUndoStack().add(new String[]{"delete", shape.getId()});
+
+        this.currentSession.getRedoStack().clear();
+
+    }
+
+    @PostMapping("copy")
+    public void createNewShape(@RequestBody String instruction) throws CloneNotSupportedException {
+
+        if(Integer.parseInt(instruction) < 0 || Integer.parseInt(instruction) >= this.currentSession.getShapes().size())
+            return;
+
+        Shape newShape = (Shape) this.currentSession.getShapes().get(Integer.parseInt(instruction)).clone();
+        newShape.setId(Integer.toString(this.currentSession.getShapes().size()));
+        newShape.setX(Float.toString(Float.parseFloat(newShape.getX()) + 50));
+        newShape.setY(Float.toString(Float.parseFloat(newShape.getY()) + 50));
+        this.currentSession.getShapes().add(newShape);
+        this.currentSession.getUndoStack().add(new String[]{"delete", newShape.getId()});
+        this.currentSession.getRedoStack().clear();
 
     }
 
     @PostMapping("restore")
-    public void restoreShape(@RequestBody String instruction) throws CloneNotSupportedException {
-
+    public void restoreShape(@RequestBody String instruction){
         if(Integer.parseInt(instruction) < 0 || Integer.parseInt(instruction) >= this.currentSession.getShapes().size())
             return;
 
@@ -46,14 +67,7 @@ public class SessionHandlerService {
 
         this.currentSession.getShapes().get(Integer.parseInt(instruction)).setDeleted(false);
 
-        for(Shape s : this.currentSession.getShapes())
-            if(!s.getDeleted())
-                System.out.println(s.getName());
-
-        System.out.println();
-
     }
-
     @PostMapping("delete")
     public void deleteShape(@RequestBody String instruction){
 
@@ -69,7 +83,16 @@ public class SessionHandlerService {
 
         this.currentSession.getShapes().get(Integer.parseInt(instruction)).setDeleted(true);
 
-        System.out.println(String.join(" " ,this.currentSession.getUndoStack().peek()));
+        this.currentSession.getRedoStack().clear();
+    }
+
+
+    public void reDeleteShape(String instruction){
+        if(Integer.parseInt(instruction) < 0 || Integer.parseInt(instruction) >= this.currentSession.getShapes().size() )
+            return;
+        this.currentSession.getUndoStack().push(new String[]{"create", instruction});
+        this.currentSession.getShapes().get(Integer.parseInt(instruction)).setDeleted(true);
+
     }
 
     @PostMapping("change")
@@ -120,7 +143,7 @@ public class SessionHandlerService {
             case "delete":
                 shape = this.currentSession.getShapes().get(Integer.parseInt(reverseAction[1]));
                 returnString = "delete " + reverseAction[1];
-                this.deleteShape(reverseAction[1]);
+                this.reDeleteShape(reverseAction[1]);
                 this.currentSession.getUndoStack().pop();
                 reverseAction[0] = "create";
                 break;
@@ -180,7 +203,7 @@ public class SessionHandlerService {
             case "delete":
                 shape = this.currentSession.getShapes().get(Integer.parseInt(reverseUndo[1]));
                 returnString = "delete " + reverseUndo[1];
-                this.deleteShape(reverseUndo[1]);
+                this.reDeleteShape(reverseUndo[1]);
                 reverseUndo[0] = "create";
                 break;
 
@@ -218,21 +241,28 @@ public class SessionHandlerService {
         return new ResponseEntity<>(returnString, HttpStatus.OK);
     }
 
-    @GetMapping("getShit")
-    public Vector<Shape> getArray() {
-        return this.currentSession.getShapes();
+    @PostMapping("loadJson")
+    Object loadJson(@RequestBody String destination) {
+        this.currentSession.getUndoStack().clear();
+        this.currentSession.getRedoStack().clear();
+        return this.currentSession.setShapes(Load.loadJson(destination));
     }
 
-    @PostMapping("loadJson")
-    Object loadJson(){ return new LoadJson(currentSession).LoadShapes();}
-
     @PostMapping("saveJson")
-    void saveJson(){ new SaveJson(currentSession);}
+    String saveJson(@RequestBody String destination) {
+        return Save.saveJson(this.currentSession, destination);
+    }
 
     @PostMapping("loadXml")
-    Object loadXml(){ return new LoadXml(currentSession).LoadShapes();}
+    Object loadXml(@RequestBody String destination){
+        this.currentSession.getUndoStack().clear();
+        this.currentSession.getRedoStack().clear();
+        return this.currentSession.setShapes(Load.loadXml(destination));
+    }
 
     @PostMapping("saveXml")
-    void saveXml(){ new SaveXml(currentSession);}
+    String saveXml(@RequestBody String destination){
+        return Save.saveXml(this.currentSession, destination);
+    }
 
 }

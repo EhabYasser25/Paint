@@ -8,6 +8,9 @@
     (clearEmitter)="receiveClear($event)"
     (saveEmitter)="receiveSave($event)"
     (loadEmitter)="receiveLoad($event)"
+    (filePathEmiiter)="receivePath($event)"                       
+    (fileNameEmiiter)="receiveName($event)"
+    (fileExtensionEmiiter)="receiveExtention($event)"
     [buttonsActions]="buttonsAction"
 
  ></app-toolbar>
@@ -17,7 +20,9 @@
  [Dfillcolor] = "receivedFillColor"
  [Dwidth] = "receivedWidth"
  [Dselect] = "receivedSelect"
- [Dshape]= "receivedShape"
+ [Dpath]= "receivedPath"
+ [Dname]= "receivedName"
+ [Dextention]= "receivedExtention"
  [buttonsActions]="buttonsAction"
  [border]="receivedBorder"
  ></app-drawarea>

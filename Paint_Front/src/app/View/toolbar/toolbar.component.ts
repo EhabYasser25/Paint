@@ -16,6 +16,10 @@ export class ToolbarComponent implements OnInit {
     this.buttonsActions.setAction(event);
   }
 
+  colorPickerChange(){
+    console.log('sss')
+  }
+
   selection: string = 'brush';
 
   @Output() shapeEmitter = new EventEmitter<string>();
@@ -53,7 +57,7 @@ export class ToolbarComponent implements OnInit {
       this.fillColorEmitter.emit(event);
     }
   }
-  sendColorP(event: any) {
+  sendColorFromPicker(event: any) {
     if(this.border == true)
     {
       this.bColor = event.target.value;
@@ -64,7 +68,7 @@ export class ToolbarComponent implements OnInit {
       this.fColor = event.target.value;
       this.fillColorEmitter.emit(event.target.value);
     }
-    this.makeAction('color');
+    this.makeAction('colorSelection');
   }
 
   @Output() widthEmitter = new EventEmitter<string>();
@@ -82,9 +86,23 @@ export class ToolbarComponent implements OnInit {
     this.selection = 'select';
   }
 
-  clear: boolean = true;
+  @Output() filePathEmiiter = new EventEmitter<string>();
+  getPath(event: any)
+  {
+    this.filePathEmiiter.emit(event.target.value);
+  }
+  
+  @Output() fileNameEmiiter = new EventEmitter<string>();
+  getName(event: any)
+  {
+    this.fileNameEmiiter.emit(event.target.value);
+  }
+  @Output() fileExtensionEmiiter = new EventEmitter<string>();
+  getExtention(event: any)
+  {
+    this.fileExtensionEmiiter.emit(event);
+  }
   ngOnInit(): void {
-    let picker = document.getElementById('colorpicker');
-    picker?.addEventListener('input' , (e: any) => this.sendColorP(e));
+
   }
 }

@@ -363,24 +363,33 @@ body{
     background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
 }
 
-/*------------------------------------------ action div -------------------------------------------*/
-.action-section {
+.action-body{
     display: flex;
     flex-direction: row;
-    justify-content: center;
     flex-wrap: wrap;
     align-content: space-between;
     border: 2px solid black;
     background-color: rgb(255, 255, 255);
     border-radius: 25px;
-    padding: 10px;
     margin-left: 10px;
     height: 150px;
-    width: 160px
+    width: 250px
+}
+.action-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    margin-left: 15px;
+    height: 60px;
+    width: 235px
 }
 .action-buttons{
     background-color: rgb(255, 255, 255);
-    margin: 9px;
+    margin: 4px;
+    margin-top: 10px;
     width: 50px;
     height: 50px;
     cursor: pointer;
@@ -389,8 +398,66 @@ body{
     transform: translateY(4px);
 }
 .action-buttons:hover {
-    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+    background-color: rgb(240, 240, 255);
 }
+
+.save-options{
+    background-color: rgb(255, 255, 255);
+    border: white;
+    margin: 4px;
+    margin-top: 12px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+.save-options:active {
+    transform: translateY(4px);
+}
+.save-options:hover {
+    background-color: rgb(240, 240, 255);
+}
+#XML{
+    background-image: url(https://cdn-icons-png.flaticon.com/512/136/136444.png);
+    background-size: cover ;
+}
+#JSON{
+    background-image: url(https://cdn-icons-png.flaticon.com/512/136/136443.png);
+    background-size: cover ;
+}
+
+.path-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    background-color: rgb(255, 255, 255);
+    border-radius:25px;
+    padding: 10px;
+    height: 80px;
+    width: 235px
+}
+.done-button{
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius:25px;
+    padding: 10px;
+    margin-left: 2px;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    background-image: url(https://www.freeiconspng.com/thumbs/ok-icon/check-yes-ok-icon-10.png);
+    background-size: cover;
+}
+.done-button:active {
+    transform: translateY(4px);
+}
+.done-button:hover {
+    background-color: rgb(240, 240, 255);
+}
+
+
+
 #save-button {
     background-image: url(https://img.icons8.com/ios-filled/512/save--v1.png);
     background-size: cover;
@@ -398,14 +465,4 @@ body{
 #load-button {
     background-image: url(https://img.icons8.com/fluency-systems-filled/512/opened-folder.png);
     background-size: cover;
-}
-/*------------------------------------------------ Logo div --------------------------------------------*/
-.logo {
-    background-image: url(https://i.pinimg.com/originals/21/28/7d/21287d34557c744a76a89c4109818f87.png);
-    background-size: cover;
-    border-radius: 25px;
-    margin-left: 15px;
-    margin-bottom: 10px;
-    height: 150px;
-    width: 150px
 }

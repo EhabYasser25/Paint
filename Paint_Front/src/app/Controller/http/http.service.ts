@@ -11,8 +11,8 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  postRequest(instructionType: string, instruction?: any): Observable<any> {
-    return this.http.post(`${this._url}${instructionType}`, instruction);
+  postRequest(instructionType: string, requesBody?: any): Observable<any> {
+    return this.http.post(`${this._url}${instructionType}`, requesBody);
   }
 
   getRequest(instruction: string): Observable<any> {

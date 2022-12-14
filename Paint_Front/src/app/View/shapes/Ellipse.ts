@@ -17,26 +17,32 @@ export class Ellipse implements IShape {
 		public fillColor: string = '#FFFFFF00'
 	) { }
 
-    konv: any;
+    konvaModel: Konva.Ellipse;
     
 
     draw(): Konva.Ellipse{
-        this.konv = new Konva.Ellipse({
+        this.konvaModel = new Konva.Ellipse({
 			id: String(this.id),
             x: this.x,
             y: this.y,
-            radiusX: this.width,
-            radiusY: this.height,
+			width: this.width,
+			height: this.height,
+            radiusX: this.width / 2,
+            radiusY: this.height / 2,
             rotation: this.rotateAngle,
             stroke: this.borderColor,
 			strokeWidth: this.strokeWidth,
 			fill: this.fillColor
 		});
-		return this.konv;
+		return this.konvaModel;
     }
 
     continueDraw(width: number, height: number): void {
-		this.konv.radiusX(width).radiusY(height);
-		this.konv.name(`${width} ${height}`);
+		this.konvaModel.radiusX(width).radiusY(height);
+		this.width = width * 2; this.height = height * 2;
+	}
+
+	clone(): Ellipse {
+		return new Ellipse(this.name, this.id, this.x, this.y, this.width, this.height, this.points, this.rotateAngle, this.strokeWidth, this.borderColor, this.fillColor)
 	}
 }

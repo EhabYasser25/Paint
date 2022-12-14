@@ -35,7 +35,6 @@ export class AppComponent {
   receivedSelect: boolean = false;
   receiveSelect(event: any) {
     this.receivedSelect = event;
-    //console.log(! this.receivedSelect);
   }
 
   receivedBorder: boolean = true;
@@ -57,5 +56,20 @@ export class AppComponent {
   receiveLoad(event: any)
   {
     this.receivedLoad = event;
+  }
+  receivedPath: any;
+  receivePath(event: any)
+  {
+    this.receivedPath = event;
+  }
+  receivedName: any;
+  receiveName(event: any)
+  {
+    this.receivedName = event;
+  }
+  receivedExtention: any;
+  receiveExtention(event: any)
+  {
+    this.receivedExtention = event;
   }
 }
