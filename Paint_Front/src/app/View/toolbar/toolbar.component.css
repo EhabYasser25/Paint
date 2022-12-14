@@ -28,7 +28,7 @@ body{
     border-radius: 25px;
     padding: 10px;
     height: 150px;
-    width: 400px;
+    width: 350px;
 }
 .shape-button {
     text-align: center;
@@ -72,6 +72,12 @@ body{
 }
 .white{
     background-color: 'white';
+}
+.bgreen{
+    color: #00cc00;
+}
+.bwhite{
+    color:  #ffffff;
 }
 /*-----------------------*/
 .invisable{
@@ -304,13 +310,13 @@ body{
     padding: 10px;
     margin-left: 10px;
     height: 150px;
-    width: 160px;
+    width: 150px;
 }
 .do-buttons{
     background-color: rgb(255, 255, 255);
     margin: 9px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -319,6 +325,24 @@ body{
 }
 .do-buttons:hover {
     background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+}
+#copy-button{
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-image: url(https://static.thenounproject.com/png/352890-200.png);
+    background-size: cover;
+}
+#copy-button:active {
+    transform: translateY(4px);
+}
+#copy-button:hover{
+    background-color: rgb(240, 240, 255);            /*opacity momkna hna*/
+}
+#do-label{
+    margin-bottom: 100px;
 }
 
 #undo-button {

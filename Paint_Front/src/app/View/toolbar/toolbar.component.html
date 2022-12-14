@@ -67,9 +67,8 @@
             <div class="do-section">
                 <button class=do-buttons id="undo-button" (click)="makeAction('undo')"></button>
                 <button class=do-buttons id="redo-button" (click)="makeAction('redo')"></button>
-                <button class=do-buttons id="undo-button" (click)="makeAction('undo')"></button>
-                <button (click)="makeAction('copy')">COPY</button>
-                <div id="do-label"></div>
+                <button id="copy-button" (click)="makeAction('copy')"></button>
+                <div id="do-label">Undo-Copy-Redo</div>
             </div>
             <div class="clear">
                 <button id="clear-button" (click)="makeAction('clear')"></button>
@@ -88,7 +87,7 @@
                     <!--<button class="done-button" id="path" (click)="getPath()"></button>-->
                     <input id="name-input" type="text" placeholder="Enter the name" (keyup)="getName($event)">
                     <!-- <button class="done-button" id="name" (click)="getName()"></button>-->
-                    <div id="action-label">Save-Load</div>s
+                    <div id="action-label">Save-Load</div>
                 </div>
             </div>
             <div class="logo">

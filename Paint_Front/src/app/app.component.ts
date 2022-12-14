@@ -67,7 +67,7 @@ export class AppComponent {
   {
     this.receivedName = event;
   }
-  receivedExtention: any;
+  receivedExtention: string = 'json';
   receiveExtention(event: any)
   {
     this.receivedExtention = event;
