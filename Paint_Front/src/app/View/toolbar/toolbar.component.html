@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class ="container">
+            <div class="shapes">
+                <button class="shape-button" (click)="sendShape('line')" [ngClass]="{'green' : selection == 'line', 'white': selection != 'line'}">⟍</button>
+                <button class="shape-button" id="arc" (click)="sendShape('arc')" [ngClass]="{'green' : selection == 'arc', 'white': selection != 'arc'}"></button>
+                <button class="shape-button" (click)="sendShape('circle')" [ngClass]="{'green' : selection == 'circle', 'white': selection != 'circle'}">O</button>
+                <button class="shape-button" (click)="sendShape('ellipse')" [ngClass]="{'green' : selection == 'ellipse', 'white': selection != 'ellipse'}">⬭</button>
+                <button class="shape-button" (click)="sendShape('triangle')" [ngClass]="{'green' : selection == 'triangle', 'white': selection != 'triangle'}">△</button>
+                <button class="shape-button" (click)="sendShape('rectangle')" [ngClass]="{'green' : selection == 'rectangle', 'white': selection != 'rectangle'}">▭</button>
+                <button class="shape-button" (click)="sendShape('square')" [ngClass]="{'green' : selection == 'square', 'white': selection != 'square'}">&#9744;</button>
+                <button class="shape-button" (click)="sendShape('pentagon')" [ngClass]="{'green' : selection == 'pentagon', 'white': selection != 'pentagon'}">⬠</button>
+                <button class="shape-button" (click)="sendShape('hexagon')" [ngClass]="{'green' : selection == 'hexagon', 'white': selection != 'hexagon'}">⬡</button>
+                <button class="shape-button" (click)="sendShape('star')" [ngClass]="{'green' : selection == 'star', 'white': selection != 'star'}">&#9734;</button>
+                <button class="invisable"></button>
+                <!--<button class="fill-button" (click)="sendFill()"></button>-->
+                <button
+                    class="select-button"
+                    (click)="sendSelect()"
+                    [ngClass]="{'green' : !select, 'red': select}"> Select
+                </button>
+                <button class="invisable"></button>
+                <div id="shape-label">Shapes</div>
+            </div>
+            <div class="tools">
+                <button class="tool-button" id="brush" (click)="sendShape('brush')" [ngClass]="{'green' : selection == 'brush', 'white': selection != 'brush'}"></button>
+                <button class="tool-button" id="eraser" (click)="sendShape('erase')" [ngClass]="{'green' : selection == 'erase', 'white': selection != 'erase'}"></button>
+                <input id="slider" type="range" min = "1"  max = "30"  value = "7" (mousemove)="sendWidth($event)" (mousemove)="makeAction('width')">
+                <div id="tool-label">Tools</div>
+            </div>
+            <div class="colors">
+                <button class="borderColor-button" id="color1" (click)="colorStyle(true)" style="background-color: {{bColor}}"></button>
+                <button class="fillColor-button"   id="color2" (click)="colorStyle(false)" style="background-color: {{fColor}}"></button>
+
+                <button class="color-button" id="Black"    (click)="sendColor('#000000')"></button>
+                <button class="color-button" id="Gray"     (click)="sendColor('#666666')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="White"    (click)="sendColor('#ffffff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-red"    (click)="sendColor('#800000')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="red"      (click)="sendColor('#ff0000')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-red"    (click)="sendColor('#ff8080')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-orange" (click)="sendColor('#804d00')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="orange"   (click)="sendColor('#ff9900')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-orange" (click)="sendColor('#ffcc80')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-yellow" (click)="sendColor('#808000')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="yellow"   (click)="sendColor('#ffff00')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-yellow" (click)="sendColor('#ffff80')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-green"  (click)="sendColor('#008000')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="green"    (click)="sendColor('#00cc00')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-green"  (click)="sendColor('#80ff80')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-blue"   (click)="sendColor('#000066')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="blue"     (click)="sendColor('#0000ff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-blue"   (click)="sendColor('#8080ff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-aqua"   (click)="sendColor('#008080')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="aqua"     (click)="sendColor('#00ffff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-aqua"   (click)="sendColor('#80ffff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="H-purple" (click)="sendColor('#330080')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="purple"   (click)="sendColor('#6600ff')" (click)="makeAction('colorSelectionEnd')"></button>
+                <button class="color-button" id="L-purple" (click)="sendColor('#b380ff')" (click)="makeAction('colorSelectionEnd')"></button>
+
+            </div>
+            <div class="colorSelector" (input)="sendColorFromPicker($event)"  (change)="makeAction('colorSelectionEnd')">
+                <input ejs-colorpicker type='color' id='colorpicker'>
+                <div id="color-label">Colors</div>
+            </div>
+
+            <div class="do-section">
+                <button class=do-buttons id="undo-button" (click)="makeAction('undo')"></button>
+                <button class=do-buttons id="redo-button" (click)="makeAction('redo')"></button>
+                <button id="copy-button" (click)="makeAction('copy')"></button>
+                <div id="do-label">Undo-Copy-Redo</div>
+            </div>
+            <div class="clear">
+                <button id="clear-button" (click)="makeAction('clear')"></button>
+                <div id="clear-label">Clear</div>
+            </div>
+            <div class="action-body">
+                <div class="action-section">
+                    <button class="action-buttons" id="save-button" (click)="makeAction('save')"></button>
+                    <button class="save-options" id="XML" (click) = "getExtention('xml')"></button>
+                    <button class="save-options" id="JSON" (click) = "getExtention('json')"></button>
+                    <button class="action-buttons" id="load-button" (click)="makeAction('load')"></button>
+                    <!---->
+                </div>
+                <div class="path-section">
+                    <input id="path-input" type="text" placeholder="Enter the path" (keyup)="getPath($event)">
+                    <!--<button class="done-button" id="path" (click)="getPath()"></button>-->
+                    <input id="name-input" type="text" placeholder="Enter the name" (keyup)="getName($event)">
+                    <!-- <button class="done-button" id="name" (click)="getName()"></button>-->
+                    <div id="action-label">Save-Load</div>
+                </div>
+            </div>
+            <div class="logo">
+            </div>
+        </div>
+    </body>
+</html>

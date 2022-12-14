@@ -1,0 +1,7 @@
+#draw {
+  height: auto;
+  width: auto;
+  border: 5px solid rgb(0, 0, 0);
+  display: flex;
+  background-color: white;
+}

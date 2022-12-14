@@ -1,20 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
+  private _url: string = 'http://localhost:8080/'
+
   constructor(private http: HttpClient) { }
 
-  postRequest(url: string, data: any): Observable<any> {
-    return this.http.post(url, data);
+  postRequest(instructionType: string, requesBody?: any): Observable<any> {
+    return this.http.post(`${this._url}${instructionType}`, requesBody);
   }
 
-  getRequest(url: string, data?: any): Observable<any> {
-    return this.http.get(url, {responseType: 'text'});
+  getRequest(instruction: string): Observable<any> {
+    return this.http.get(`${this._url}${instruction}`, {responseType: 'text'});
   }
   
 }

@@ -1,27 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../http/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttributesService {
 
-  constructor(private service: HttpService) { }
+  constructor() { }
 
-  text = "Ehab";
+  name: string;
+  id?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  points?: number[];
+  rotateAngle?: number;
+  strokeWidth?: number;
+  borderColor?: string;
+  fillColor?: string;
 
-  getText() {
-    return this.text;
-  }
-
-  send() {
-    this.service.getRequest("http://localhost:8080/st")
-    .subscribe(
-      (data: string) => {
-        this.text = data;
-        console.log(this.text);
-      }
-    )
+  setAttributes(name: string, id: number, x: number, y: number, width: number, height: number, points: Number[], rotateAngle: number, strokeWidth: number, borderColor: string, fillColor: string) {
+    this.name = name;
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    if(name == 'line' || name == 'brush'){
+      this.points = [];
+      for(let i = 0; i < points.length; i++) 
+        this.points.push(Number(points[i])) 
+    }
+    this.rotateAngle = rotateAngle;
+    this.strokeWidth = strokeWidth;
+    this.borderColor = borderColor;
+    this.fillColor = fillColor;
   }
 
 }

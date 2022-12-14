@@ -1,3 +1,28 @@
-<app-paint></app-paint>
+<app-toolbar
+    (shapeEmitter)="receiveShape($event)"
+    (borderColorEmitter)="receiveBorderColor($event)"
+    (fillColorEmitter)="receiveFillColor($event)"
+    (widthEmitter)="receiveWidth($event)"
+    (selectEmitter)="receiveSelect($event)"
+    (borderEmitter)="receiveBorder($event)"
+    (clearEmitter)="receiveClear($event)"
+    (saveEmitter)="receiveSave($event)"
+    (loadEmitter)="receiveLoad($event)"
+    (filePathEmiiter)="receivePath($event)"                       
+    (fileNameEmiiter)="receiveName($event)"
+    (fileExtensionEmiiter)="receiveExtention($event)"
+    [buttonsActions]="buttonsAction"
 
-<router-outlet></router-outlet>
+ ></app-toolbar>
+<app-drawarea class="draw"
+ [Dshape] = "receivedShape"
+ [Dbordercolor] = "receivedBorderColor"
+ [Dfillcolor] = "receivedFillColor"
+ [Dwidth] = "receivedWidth"
+ [Dselect] = "receivedSelect"
+ [Dpath]= "receivedPath"
+ [Dname]= "receivedName"
+ [Dextention]= "receivedExtention"
+ [buttonsActions]="buttonsAction"
+ [border]="receivedBorder"
+ ></app-drawarea>
