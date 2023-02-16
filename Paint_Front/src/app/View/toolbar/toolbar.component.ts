@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input, HostListener } from '@angular/core';
 import { ButtonService } from 'src/app/Controller/ButtonService/button.service';
 
 @Component({
@@ -8,6 +8,18 @@ import { ButtonService } from 'src/app/Controller/ButtonService/button.service';
 })
 
 export class ToolbarComponent implements OnInit {
+
+  @HostListener('window:keydown.Control.z', ['$event']) cz() {
+    this.makeAction('undo');
+  }
+
+  @HostListener('window:keydown.Control.y', ['$event']) cy() {
+    this.makeAction('redo');
+  }
+
+  @HostListener('window:keydown.Control.c', ['$event']) cc() {
+    this.makeAction('copy');
+  }
 
   @Output() actionEmitter = new EventEmitter<string>();
   @Input() buttonsActions: ButtonService;

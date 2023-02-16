@@ -41,4 +41,5 @@ public class Load {
         }
 
         return loadedShapes;
-    }}
+    }
+}
