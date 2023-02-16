@@ -95,7 +95,7 @@ export class ToolbarComponent implements OnInit {
   {
     this.selectEmitter.emit(this.select);
     this.select = !this.select;
-    this.selection='select';
+    this.selection = 'select';
   }
 
   @Output() filePathEmiiter = new EventEmitter<string>();
